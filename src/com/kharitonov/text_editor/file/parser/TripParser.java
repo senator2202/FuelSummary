@@ -61,6 +61,9 @@ public class TripParser {
                     TruckDriverParser.parse(driverId, driverName);
             FuelUsage fuelUsage =
                     FuelUsageParser.parse(usageNormal, usageWayBill);
+            int numberOfRiders = ridersNumber == null || ridersNumber.isEmpty()
+                    ? 0
+                    : Integer.parseInt(ridersNumber);
             Trip trip = Trip.TripBuilder.aTrip()
                     .withDate(date)
                     .withOfficialBill(officialBill)
@@ -69,7 +72,7 @@ public class TripParser {
                     .withFuelUsage(fuelUsage)
                     .withKilometrage(Double.parseDouble(kilometrage))
                     .withCargoTraffic(Integer.parseInt(cargoTraffic))
-                    .withRidersNumber(Integer.parseInt(ridersNumber))
+                    .withRidersNumber(numberOfRiders)
                     .withFuelStart(Double.parseDouble(fuelStart))
                     .withFuelEnd(Double.parseDouble(fuelEnd))
                     .withFuelEconomy(Double.parseDouble(fuelEconomy))

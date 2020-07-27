@@ -4,13 +4,8 @@ import com.kharitonov.text_editor.entity.TruckDriver;
 
 public class TruckDriverParser {
 
-    public static TruckDriver parse(String driverId, String driverName) {
-        int id = 0;
-        try {
-            id = Integer.parseInt(driverId);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+    static TruckDriver parse(String driverId, String driverName) {
+        int id = Integer.parseInt(driverId);
         return new TruckDriver(id, driverName);
     }
 }
