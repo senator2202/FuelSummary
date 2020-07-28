@@ -1,4 +1,4 @@
-package com.kharitonov.text_editor.file.parser;
+package com.kharitonov.text_editor.parser;
 
 import com.kharitonov.text_editor.entity.WayBill;
 
