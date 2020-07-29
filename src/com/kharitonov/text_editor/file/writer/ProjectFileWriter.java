@@ -13,7 +13,7 @@ public class ProjectFileWriter {
     public void write(FuelSummary fuelSummary, String fileName) {
         try (FileWriter writer = new FileWriter(fileName, false)) {
             StringBuilder sb = new StringBuilder();
-            sb.append("\t\t\t\tПерерасход\\экономия топлива на ")
+            sb.append("\t\t\t\tЭкономия\\перерасход топлива на ")
                     .append(fuelSummary.getHeader()
                             .getDateCreation().get(Calendar.DAY_OF_MONTH))
                     .append(".")
@@ -23,19 +23,19 @@ public class ProjectFileWriter {
                     .append(fuelSummary.getHeader()
                             .getDateCreation().get(Calendar.YEAR))
                     .append("\n");
-            sb.append("Гаражный номер а/м\t\t").append("Водитель\t\t")
+            sb.append("Гар. №\t\t").append("Водитель\t\t")
                     .append("Экономия\\перерасход\t\t")
-                    .append("Дата последней путевки\n");
+                    .append("Последняя путевка\n");
             for (TruckSummary truckSummary :
                     fuelSummary.getTruckSummaryList()) {
                 for (Map.Entry<TruckDriver, Double> entry :
                         truckSummary.getFuelEconomy().entrySet()) {
                     sb.append(truckSummary.getTruck().getGarageNumber());
-                    sb.append("\t\t\t\t\t")
+                    sb.append("\t\t")
                             .append(formatName(entry.getKey().getName()))
                             .append("\t\t\t")
                             .append(formatDay(entry.getValue()))
-                            .append("\t\t\t\t\t")
+                            .append("\t\t\t\t")
                             .append(truckSummary.getDayLast())
                             .append(".")
                             .append(fuelSummary.getHeader()
