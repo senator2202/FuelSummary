@@ -1,6 +1,6 @@
 package com.kharitonov.text_editor.exception;
 
-public class ProjectException extends Exception{
+public class ProjectException extends Exception {
     public ProjectException() {
     }
 

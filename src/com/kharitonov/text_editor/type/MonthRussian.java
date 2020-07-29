@@ -22,24 +22,24 @@ public enum MonthRussian {
         this.value = value;
     }
 
+    public static MonthRussian getMonth(String value) {
+        MonthRussian monthRussian = null;
+        MonthRussian[] months = values();
+        value = value.toUpperCase();
+        for (MonthRussian month : months) {
+            if (month.value.equals(value)) {
+                monthRussian = month;
+                break;
+            }
+        }
+        return monthRussian;
+    }
+
     public int getIndex() {
         return index;
     }
 
     public String getValue() {
         return value;
-    }
-
-    public static MonthRussian getMonth(String value) {
-        MonthRussian monthRussian=null;
-        MonthRussian []months = values();
-        value=value.toUpperCase();
-        for (MonthRussian month : months) {
-            if (month.value.equals(value)) {
-                monthRussian=month;
-                break;
-            }
-        }
-        return monthRussian;
     }
 }

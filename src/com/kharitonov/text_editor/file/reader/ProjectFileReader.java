@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class DosFileReader {
+public class ProjectFileReader {
     public String read(String fileName) {
         String data = new String();
         try (BufferedReader br = new BufferedReader(

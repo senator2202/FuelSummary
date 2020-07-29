@@ -12,10 +12,11 @@ public class TruckSummary {
     private int ridersNumber;
     private FuelBalance fuelBalance;
     private FuelUsage fuelUsage;
-    private Map<TruckDriver,Double> fuelEconomy;
+    private Map<TruckDriver, Double> fuelEconomy;
 
     private TruckSummary() {
     }
+
     public int getDayFirst() {
         return dayFirst;
     }

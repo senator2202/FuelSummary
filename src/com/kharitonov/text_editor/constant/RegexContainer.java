@@ -53,5 +53,6 @@ public class RegexContainer {
                     "(?<year>\\d+)(\\s+ГОД\\s+\\d+\\s+ДАТА\\sСЧЕТА\\s)" +
                     "(?<dateCreation>\\d{1,2}/\\d{2}/\\d{2})(\\s+ЛИСТ\\s+1)";
 
-    private RegexContainer() {}
+    private RegexContainer() {
+    }
 }

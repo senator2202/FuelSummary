@@ -4,10 +4,10 @@ import com.kharitonov.text_editor.entity.WayBill;
 
 public class WayBillCreator {
     WayBill create(String id,
-                  String pack,
-                  String fuelReceived,
-                  String fuelReturned) {
-        int intPack ;
+                   String pack,
+                   String fuelReceived,
+                   String fuelReturned) {
+        int intPack;
         int intId;
         double doubleFuelReceived;
         double doubleFuelReturned;

@@ -3,7 +3,7 @@ package com.kharitonov.text_editor.creator;
 import com.kharitonov.text_editor.entity.FuelUsage;
 
 public class FuelUsageCreator {
-     FuelUsage create(String usageNormal, String usageWayBill) {
+    FuelUsage create(String usageNormal, String usageWayBill) {
         double doubleUsageNormal;
         double doubleUsageWayBill;
         doubleUsageNormal = Double.parseDouble(usageNormal);

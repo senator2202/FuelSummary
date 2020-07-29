@@ -45,5 +45,6 @@ public class GroupNames {
     public static final String USAGE_WAY_BILL_TRIP = "usageWayBillTrip";
     public static final String FUEL_ECONOMY_TRIP = "fuelEconomyTrip";
 
-    private GroupNames(){}
+    private GroupNames() {
+    }
 }
