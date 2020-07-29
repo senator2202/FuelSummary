@@ -21,6 +21,7 @@ public class WorkBookBuilder {
     private static final short HEADER_FONT_SIZE = 250;
     private static final short CELL_FONT_SIZE = 220;
     private static final String FONT_NAME = "Times New Roman";
+    private static final String DELIMITER = ".";
 
     public HSSFWorkbook build(FuelSummary fuelSummary) {
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -50,9 +51,9 @@ public class WorkBookBuilder {
                 HSSFRow row = sheet.createRow(counter++);
                 HSSFCellStyle style = createCellStyle(workbook);
                 StringBuilder sb = new StringBuilder();
-                sb.append(lastDay).append(".")
+                sb.append(lastDay).append(DELIMITER)
                         .append(fuelSummary.getHeader().getMonth().getIndex())
-                        .append(".")
+                        .append(DELIMITER)
                         .append(fuelSummary.getHeader().getYear());
                 row.createCell(NUMBER_INDEX).setCellValue(garageNumber);
                 row.createCell(DRIVER_INDEX)
