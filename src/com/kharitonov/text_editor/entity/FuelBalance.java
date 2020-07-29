@@ -1,19 +1,19 @@
 package com.kharitonov.text_editor.entity;
 
-public class FuelBallance {
-    private double fuelStart;
-    private double receivedFuel;
-    private double receivedFuelOfficial;
-    private double returnedFuel;
-    private double returnedFuelOfficial;
-    private double fuelEnd;
+public class FuelBalance {
+    private final double fuelStart;
+    private final double receivedFuel;
+    private final double receivedFuelOfficial;
+    private final double returnedFuel;
+    private final double returnedFuelOfficial;
+    private final double fuelEnd;
 
-    public FuelBallance(double fuelStart,
-                        double receivedFuel,
-                        double receivedFuelOfficial,
-                        double returnedFuel,
-                        double returnedFuelOfficial,
-                        double fuelEnd) {
+    public FuelBalance(double fuelStart,
+                       double receivedFuel,
+                       double receivedFuelOfficial,
+                       double returnedFuel,
+                       double returnedFuelOfficial,
+                       double fuelEnd) {
         this.fuelStart = fuelStart;
         this.receivedFuel = receivedFuel;
         this.receivedFuelOfficial = receivedFuelOfficial;

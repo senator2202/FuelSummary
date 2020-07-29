@@ -5,9 +5,9 @@ import com.kharitonov.text_editor.type.MonthRussian;
 import java.util.Calendar;
 
 public class ReportHeader {
-    private MonthRussian month;
-    private int year;
-    private Calendar dateCreation;
+    private final MonthRussian month;
+    private final int year;
+    private final Calendar dateCreation;
 
     public ReportHeader(MonthRussian month, int year, Calendar dateCreation) {
         this.month = month;

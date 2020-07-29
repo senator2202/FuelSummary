@@ -1,9 +1,9 @@
 package com.kharitonov.text_editor.entity;
 
 public class Truck {
-    private String carNumber;
-    private int garageNumber;
-    private int modelCode;
+    private final String carNumber;
+    private final int garageNumber;
+    private final int modelCode;
 
     public Truck(String carNumber, int garageNumber, int modelCode) {
         this.carNumber = carNumber;

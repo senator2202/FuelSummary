@@ -1,8 +1,5 @@
 package com.kharitonov.text_editor.entity;
 
-import com.kharitonov.text_editor.type.MonthRussian;
-
-import java.util.Date;
 import java.util.Map;
 
 public class TruckSummary {
@@ -13,7 +10,7 @@ public class TruckSummary {
     private double kilometrage;
     private int cargoTraffic;
     private int ridersNumber;
-    private FuelBallance fuelBallance;
+    private FuelBalance fuelBalance;
     private FuelUsage fuelUsage;
     private Map<TruckDriver,Double> fuelEconomy;
 
@@ -67,12 +64,12 @@ public class TruckSummary {
         this.ridersNumber = ridersNumber;
     }
 
-    public FuelBallance getFuelBallance() {
-        return fuelBallance;
+    public FuelBalance getFuelBalance() {
+        return fuelBalance;
     }
 
-    public void setFuelBallance(FuelBallance fuelBallance) {
-        this.fuelBallance = fuelBallance;
+    public void setFuelBalance(FuelBalance fuelBalance) {
+        this.fuelBalance = fuelBalance;
     }
 
     public FuelUsage getFuelUsage() {
@@ -98,7 +95,7 @@ public class TruckSummary {
         private double kilometrage;
         private int cargoTraffic;
         private int ridersNumber;
-        private FuelBallance fuelBallance;
+        private FuelBalance fuelBalance;
         private FuelUsage fuelUsage;
         private Map<TruckDriver, Double> fuelEconomy;
 
@@ -139,8 +136,8 @@ public class TruckSummary {
             return this;
         }
 
-        public TruckSummaryBuilder withFuelBallance(FuelBallance fuelBallance) {
-            this.fuelBallance = fuelBallance;
+        public TruckSummaryBuilder withFuelBallance(FuelBalance fuelBalance) {
+            this.fuelBalance = fuelBalance;
             return this;
         }
 
@@ -162,7 +159,7 @@ public class TruckSummary {
             truckSummary.setKilometrage(kilometrage);
             truckSummary.setCargoTraffic(cargoTraffic);
             truckSummary.setRidersNumber(ridersNumber);
-            truckSummary.setFuelBallance(fuelBallance);
+            truckSummary.setFuelBalance(fuelBalance);
             truckSummary.setFuelUsage(fuelUsage);
             truckSummary.setFuelEconomy(fuelEconomy);
             return truckSummary;

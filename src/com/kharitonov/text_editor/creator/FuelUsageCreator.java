@@ -1,9 +1,9 @@
-package com.kharitonov.text_editor.parser;
+package com.kharitonov.text_editor.creator;
 
 import com.kharitonov.text_editor.entity.FuelUsage;
 
-public class FuelUsageParser {
-    public static FuelUsage parse(String usageNormal, String usageWayBill) {
+public class FuelUsageCreator {
+     FuelUsage create(String usageNormal, String usageWayBill) {
         double doubleUsageNormal;
         double doubleUsageWayBill;
         doubleUsageNormal = Double.parseDouble(usageNormal);

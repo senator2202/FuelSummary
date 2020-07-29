@@ -1,6 +1,6 @@
 package com.kharitonov.text_editor.trimmer;
 
-import com.kharitonov.text_editor.regex.RegexContainer;
+import com.kharitonov.text_editor.constant.RegexContainer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

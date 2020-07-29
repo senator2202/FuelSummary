@@ -1,14 +1,16 @@
 package com.kharitonov.text_editor.parser;
 
+import com.kharitonov.text_editor.constant.RegexContainer;
 import com.kharitonov.text_editor.creator.ReportHeaderCreator;
+import com.kharitonov.text_editor.creator.TripCreator;
 import com.kharitonov.text_editor.creator.TruckSummaryCreator;
-import com.kharitonov.text_editor.entity.*;
-import com.kharitonov.text_editor.regex.RegexContainer;
+import com.kharitonov.text_editor.entity.FuelSummary;
+import com.kharitonov.text_editor.entity.ReportHeader;
+import com.kharitonov.text_editor.entity.Trip;
+import com.kharitonov.text_editor.entity.TruckSummary;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,52 +20,7 @@ public class ReportParser {
         Matcher matcher = pattern.matcher(data);
         List<Trip> tripList = new ArrayList<>();
         while (matcher.find()) {
-            String date = matcher.group("date");
-            String officialBillId = matcher.group("officialBillId");
-            String pack = matcher.group("pack");
-            String wayBillId = matcher.group("wayBillId");
-            String driverName = matcher.group("driverNameTrip");
-            String driverId = matcher.group("driverIdTrip");
-            String kilometrage = matcher.group("kilometrageTrip");
-            String cargoTraffic = matcher.group("cargoTrafficTrip");
-            String ridersNumber = matcher.group("ridersNumberTrip");
-            String fuelStart = matcher.group("fuelStartTrip");
-            String receivedFuel = matcher.group("receivedFuelTrip");
-            String receivedFuelOfficial = matcher
-                    .group("receivedFuelOfficialTrip");
-            String returnedFuel = matcher.group("returnedFuelTrip");
-            String returnedFuelOfficial = matcher
-                    .group("returnedFuelOfficialTrip");
-            String fuelEnd = matcher.group("fuelEndTrip");
-            String usageNormal = matcher.group("usageNormalTrip");
-            String usageWayBill = matcher.group("usageWayBillTrip");
-            String fuelEconomy = matcher.group("fuelEconomyTrip");
-            OfficialBill officialBill =
-                    OfficialBillParser.parse(officialBillId,
-                            receivedFuelOfficial,
-                            returnedFuelOfficial);
-            WayBill wayBill = WayBillParser.parse(wayBillId, pack,
-                    receivedFuel, returnedFuel);
-            TruckDriver truckDriver =
-                    TruckDriverParser.parse(driverId, driverName);
-            FuelUsage fuelUsage =
-                    FuelUsageParser.parse(usageNormal, usageWayBill);
-            int numberOfRiders = ridersNumber == null || ridersNumber.isEmpty()
-                    ? 0
-                    : Integer.parseInt(ridersNumber);
-            Trip trip = Trip.TripBuilder.aTrip()
-                    .withDate(date)
-                    .withOfficialBill(officialBill)
-                    .withWayBill(wayBill)
-                    .withDriver(truckDriver)
-                    .withFuelUsage(fuelUsage)
-                    .withKilometrage(Double.parseDouble(kilometrage))
-                    .withCargoTraffic(Integer.parseInt(cargoTraffic))
-                    .withRidersNumber(numberOfRiders)
-                    .withFuelStart(Double.parseDouble(fuelStart))
-                    .withFuelEnd(Double.parseDouble(fuelEnd))
-                    .withFuelEconomy(Double.parseDouble(fuelEconomy))
-                    .build();
+            Trip trip = new TripCreator().create(matcher);
             tripList.add(trip);
         }
         return tripList;
@@ -72,7 +29,7 @@ public class ReportParser {
     public FuelSummary parseFuelSummary(String data) {
         List<TruckSummary> truckSummaryList = parseTruckSummaries(data);
         ReportHeader reportHeader = parseReportHeader(data);
-        return new FuelSummary(reportHeader,truckSummaryList);
+        return new FuelSummary(reportHeader, truckSummaryList);
     }
 
     public ReportHeader parseReportHeader(String data) {
@@ -100,28 +57,5 @@ public class ReportParser {
             truckSummaryList.add(truckSummary);
         }
         return truckSummaryList;
-    }
-
-    private Map<TruckDriver, Double> getEconomy(Matcher matcher) {
-        Pattern p = Pattern.compile(RegexContainer.REGEX_DRIVER);
-        Matcher m = p.matcher(matcher.group());
-        Map<TruckDriver, Double> economyMap = new HashMap<>();
-        while (m.find()) {
-            String id = m.group("driverId");
-            String name = m.group("driverName");
-            String economy = m.group("driverEconomy");
-            TruckDriver driver = new TruckDriver(Integer.parseInt(id),
-                    name);
-            economyMap.put(driver, Double.parseDouble(economy));
-        }
-        if (economyMap.isEmpty()) {
-            String name = matcher.group("driverNameTrip");
-            String id = matcher.group("driverIdTrip");
-            String economy = matcher.group("fuelEconomy");
-            TruckDriver driver = new TruckDriver(Integer.parseInt(id),
-                    name);
-            economyMap.put(driver, Double.parseDouble(economy));
-        }
-        return economyMap;
     }
 }

@@ -10,6 +10,10 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class ProjectFileWriter {
+    private static final String SPACE = " ";
+    private static final int NAME_FORMAT_LENGTH = 15;
+    private static final int ECONOMY_DAY_LENGTH = 4;
+
     public void write(FuelSummary fuelSummary, String fileName) {
         try (FileWriter writer = new FileWriter(fileName, false)) {
             StringBuilder sb = new StringBuilder();
@@ -54,18 +58,16 @@ public class ProjectFileWriter {
 
     private String formatName(String text) {
         StringBuilder sb = new StringBuilder(text);
-        for (int i = 0; i < 15 - text.length(); i++) {
-            sb.append(" ");
-        }
+        sb.append(SPACE.repeat(Math.max(0,
+                NAME_FORMAT_LENGTH - text.length())));
         return sb.toString();
     }
 
     private String formatDay(double day) {
         String stringDay = String.valueOf(day);
         StringBuilder sb = new StringBuilder(stringDay);
-        for (int i = 0; i < 4 - stringDay.length(); i++) {
-            sb.append(" ");
-        }
+        sb.append(SPACE.repeat(Math.max(0,
+                ECONOMY_DAY_LENGTH - stringDay.length())));
         return sb.toString();
     }
 }

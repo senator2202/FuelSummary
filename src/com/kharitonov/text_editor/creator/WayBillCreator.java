@@ -1,12 +1,12 @@
-package com.kharitonov.text_editor.parser;
+package com.kharitonov.text_editor.creator;
 
 import com.kharitonov.text_editor.entity.WayBill;
 
-public class WayBillParser {
-    static WayBill parse(String id,
-                         String pack,
-                         String fuelReceived,
-                         String fuelReturned) {
+public class WayBillCreator {
+    WayBill create(String id,
+                  String pack,
+                  String fuelReceived,
+                  String fuelReturned) {
         int intPack ;
         int intId;
         double doubleFuelReceived;

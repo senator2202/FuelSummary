@@ -1,8 +1,8 @@
-package com.kharitonov.text_editor.regex;
+package com.kharitonov.text_editor.constant;
 
 public class RegexContainer {
     public static final String REGEX_TRIP =
-            "(?<date>\\d\\d\\.\\d\\d)(\\s+)" +
+            "(?<dateTrip>\\d\\d\\.\\d\\d)(\\s+)" +
                     "(?<officialBillId>\\d?)(\\s+)" +
                     "(?<pack>\\d+)(\\s+)" +
                     "(?<wayBillId>\\d+)(\\s+)" +
@@ -52,4 +52,6 @@ public class RegexContainer {
             "(?<month>\\p{L}+)(\\s+)" +
                     "(?<year>\\d+)(\\s+ГОД\\s+\\d+\\s+ДАТА\\sСЧЕТА\\s)" +
                     "(?<dateCreation>\\d{1,2}/\\d{2}/\\d{2})(\\s+ЛИСТ\\s+1)";
+
+    private RegexContainer() {}
 }

@@ -14,8 +14,8 @@ public enum MonthRussian {
     NOVEMBER(11, "НОЯБРЬ"),
     DECEMBER(12, "ДЕКАБРЬ");
 
-    private int index;
-    private String value;
+    private final int index;
+    private final String value;
 
     MonthRussian(int index, String value) {
         this.index = index;

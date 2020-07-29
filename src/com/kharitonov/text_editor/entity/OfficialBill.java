@@ -1,9 +1,9 @@
 package com.kharitonov.text_editor.entity;
 
 public class OfficialBill {
-    private int id;
-    private double fuelReceived;
-    private double fuelReturned;
+    private final int id;
+    private final double fuelReceived;
+    private final double fuelReturned;
 
     public OfficialBill(int id, double fuelReceived, double fuelReturned) {
         this.id = id;

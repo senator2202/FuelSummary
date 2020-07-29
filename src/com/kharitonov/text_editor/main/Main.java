@@ -1,13 +1,10 @@
 package com.kharitonov.text_editor.main;
 
 import com.kharitonov.text_editor.entity.FuelSummary;
-import com.kharitonov.text_editor.entity.TruckSummary;
 import com.kharitonov.text_editor.file.reader.DosFileReader;
 import com.kharitonov.text_editor.file.writer.ProjectFileWriter;
 import com.kharitonov.text_editor.parser.ReportParser;
 import com.kharitonov.text_editor.trimmer.ReportTrimmer;
-
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {

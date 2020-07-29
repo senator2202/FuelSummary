@@ -1,10 +1,8 @@
 package com.kharitonov.text_editor.creator;
 
+import com.kharitonov.text_editor.constant.GroupNames;
+import com.kharitonov.text_editor.constant.RegexContainer;
 import com.kharitonov.text_editor.entity.*;
-import com.kharitonov.text_editor.parser.FuelBallanceParser;
-import com.kharitonov.text_editor.parser.FuelUsageParser;
-import com.kharitonov.text_editor.parser.TruckParser;
-import com.kharitonov.text_editor.regex.RegexContainer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,40 +11,42 @@ import java.util.regex.Pattern;
 
 public class TruckSummaryCreator {
     public TruckSummary create(Matcher matcher) {
-        String dayFirst = matcher.group("dayFirst");
-        String dayLast = matcher.group("dayLast");
-        String garageNumber = matcher.group("garageNumber");
-        String modelCode = matcher.group("modelCode");
-        String kilometrage = matcher.group("kilometrage");
-        String cargoTraffic = matcher.group("cargoTraffic");
-        String ridersNumber = matcher.group("ridersNumber");
-        String fuelStart = matcher.group("fuelStart");
-        String receivedFuel = matcher.group("receivedFuel");
-        String receivedFuelOfficial = matcher.group("receivedFuelOfficial");
-        String returnedFuel = matcher.group("returnedFuel");
-        String returnedFuelOfficial = matcher.group("returnedFuelOfficial");
-        String fuelEnd = matcher.group("fuelEnd");
-        String usageNormal = matcher.group("usageNormal");
-        String usageWayBill = matcher.group("usageWayBill");
-        String carNumber = matcher.group("carNumber");
-        Truck truck = TruckParser.parse(carNumber, garageNumber, modelCode);
-        FuelBallance fuelBallance = FuelBallanceParser.parse(
-                fuelStart,
-                receivedFuel,
-                receivedFuelOfficial,
-                returnedFuel,
-                returnedFuelOfficial,
-                fuelEnd);
-        FuelUsage fuelUsage = FuelUsageParser
-                .parse(usageNormal, usageWayBill);
+        String dayFirst = matcher.group(GroupNames.DAY_FIRST);
+        String dayLast = matcher.group(GroupNames.DAY_LAST);
+        String garageNumber = matcher.group(GroupNames.GARAGE_NUMBER);
+        String modelCode = matcher.group(GroupNames.MODEL_CODE);
+        String kilometrage = matcher.group(GroupNames.KILOMETRAGE);
+        String cargoTraffic = matcher.group(GroupNames.CARGO_TRAFFIC);
+        String ridersNumber = matcher.group(GroupNames.RIDERS_NUMBER);
+        String fuelStart = matcher.group(GroupNames.FUEL_START);
+        String receivedFuel = matcher.group(GroupNames.RECEIVED_FUEL);
+        String receivedFuelOfficial =
+                matcher.group(GroupNames.RECEVIED_FUEL_OFFICIAL);
+        String returnedFuel = matcher.group(GroupNames.RETURNED_FUEL);
+        String returnedFuelOfficial = matcher.group(GroupNames.RETURNED_FUEL_OFFICIAL);
+        String fuelEnd = matcher.group(GroupNames.FUEL_END);
+        String usageNormal = matcher.group(GroupNames.USAGE_NORMAL);
+        String usageWayBill = matcher.group(GroupNames.USAGE_WAY_BILL);
+        String carNumber = matcher.group(GroupNames.CAR_NUMBER);
+        Truck truck = new TruckCreator()
+                .create(carNumber, garageNumber, modelCode);
+        FuelBalance fuelBalance = new FuelBalanceCreator()
+                .create(fuelStart,
+                        receivedFuel,
+                        receivedFuelOfficial,
+                        returnedFuel,
+                        returnedFuelOfficial,
+                        fuelEnd);
+        FuelUsage fuelUsage = new FuelUsageCreator()
+                .create(usageNormal, usageWayBill);
         int numberOfRiders = ridersNumber == null || ridersNumber.isEmpty()
                 ? 0
                 : Integer.parseInt(ridersNumber);
         Map<TruckDriver, Double> economyMap = getEconomy(matcher);
-        TruckSummary truckSummary = TruckSummary.TruckSummaryBuilder
+        return TruckSummary.TruckSummaryBuilder
                 .aTruckSummary()
                 .withTruck(truck)
-                .withFuelBallance(fuelBallance)
+                .withFuelBallance(fuelBalance)
                 .withFuelUsage(fuelUsage)
                 .withRidersNumber(numberOfRiders)
                 .withDayFirst(Integer.parseInt(dayFirst))
@@ -55,7 +55,6 @@ public class TruckSummaryCreator {
                 .withCargoTraffic(Integer.parseInt(cargoTraffic))
                 .withFuelEconomy(economyMap)
                 .build();
-        return truckSummary;
     }
 
     private Map<TruckDriver, Double> getEconomy(Matcher matcher) {
@@ -63,17 +62,17 @@ public class TruckSummaryCreator {
         Matcher m = p.matcher(matcher.group());
         Map<TruckDriver, Double> economyMap = new HashMap<>();
         while (m.find()) {
-            String id = m.group("driverId");
-            String name = m.group("driverName");
-            String economy = m.group("driverEconomy");
+            String id = m.group(GroupNames.DRIVER_ID);
+            String name = m.group(GroupNames.DRIVER_NAME);
+            String economy = m.group(GroupNames.DRIVER_ECONOMY);
             TruckDriver driver = new TruckDriver(Integer.parseInt(id),
                     name);
             economyMap.put(driver, Double.parseDouble(economy));
         }
         if (economyMap.isEmpty()) {
-            String name = matcher.group("driverNameTrip");
-            String id = matcher.group("driverIdTrip");
-            String economy = matcher.group("fuelEconomy");
+            String name = matcher.group(GroupNames.DRIVER_NAME_TRIP);
+            String id = matcher.group(GroupNames.DRIVER_ID_TRIP);
+            String economy = matcher.group(GroupNames.FUEL_ECONOMY);
             TruckDriver driver = new TruckDriver(Integer.parseInt(id),
                     name);
             economyMap.put(driver, Double.parseDouble(economy));

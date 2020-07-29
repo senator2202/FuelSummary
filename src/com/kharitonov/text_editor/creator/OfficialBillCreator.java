@@ -1,11 +1,11 @@
-package com.kharitonov.text_editor.parser;
+package com.kharitonov.text_editor.creator;
 
 import com.kharitonov.text_editor.entity.OfficialBill;
 
-public class OfficialBillParser {
-    static OfficialBill parse(String id,
-                              String fuelReceived,
-                              String fuelReturned) {
+public class OfficialBillCreator {
+    OfficialBill create(String id,
+                        String fuelReceived,
+                        String fuelReturned) {
         double doubleFuelReceived;
         double doubleFuelReturned;
         int intId = id.isEmpty()
