@@ -1,8 +1,12 @@
 package com.kharitonov.text_editor.entity;
 
+import com.kharitonov.text_editor.type.MonthRussian;
+
+import java.util.Date;
 import java.util.Map;
 
 public class TruckSummary {
+
     private int dayFirst;
     private int dayLast;
     private Truck truck;
@@ -15,7 +19,6 @@ public class TruckSummary {
 
     private TruckSummary() {
     }
-
     public int getDayFirst() {
         return dayFirst;
     }

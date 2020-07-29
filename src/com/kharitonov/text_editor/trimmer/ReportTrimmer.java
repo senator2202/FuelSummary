@@ -10,11 +10,13 @@ public class ReportTrimmer {
         String finalRegex = String.format("(?<trip>%s)|" +
                         "(?<truckSummary>%s)|" +
                         "(?<driversText>%s)|" +
-                        "(?<driver>%s)",
+                        "(?<driver>%s)|" +
+                        "(?<header>%s)",
                 RegexContainer.REGEX_TRIP,
                 RegexContainer.REGEX_TRUCK_SUMMARY,
                 RegexContainer.DRIVERS_TEXT,
-                RegexContainer.REGEX_DRIVER);
+                RegexContainer.REGEX_DRIVER,
+                RegexContainer.REGEX_HEADER);
         Pattern pattern = Pattern.compile(finalRegex);
         Matcher matcher = pattern.matcher(data);
         StringBuilder sb = new StringBuilder();

@@ -43,6 +43,16 @@ public class RegexContainer {
     public static final String DRIVERS_TEXT =
             "(В\\sТОМ\\sЧИСЛЕ\\sПО\\sВОДИТЕЛЯМ)";
     public static final String REGEX_DRIVER =
-            "(?<driverName>\\p{L}+\\s\\p{L}[\\s\\.]\\p{L}\\.?)(\\s+)(?<driverId>\\d+)(\\s+\\d+\\.\\d+\\s+\\s+\\d+\\s+\\d+\\.\\d+\\s+\\d+\\s+\\d+\\.\\d+\\s+\\d+\\.\\d+\\s+)" +
+            "(?<driverName>\\p{L}+\\s\\p{L}[\\s\\.]\\p{L}\\.?)(\\s+)" +
+                    "(?<driverId>\\d+)(\\s+\\d+\\.\\d+\\s+\\s+\\d+\\s+\\d+\\.\\d+\\s+\\d+\\s+\\d+\\.\\d+\\s+\\d+\\.\\d+\\s+)" +
                     "(?<driverEconomy>-?\\d+\\.\\d+)";
+    public static final String REGEX_HEADER =
+            "(?<month>\\p{L}+)(\\s+)" +
+                    "(?<year>\\d+)(\\s+ГОД\\s+\\d+\\s+ДАТА\\sСЧЕТА\\s)" +
+                    "(?<dateCreation>\\d{1,2}/\\d{2}/\\d{2})(\\s+ЛИСТ\\s+1)";
+    public static final String REGEX_MONTH_YEAR =
+                    "(?<month>\\p{L}+)(\\s+)" +
+                    "(?<year>\\d+)(\\s+ГОД)";
+    public static final String REGEX_DATE_CREATION =
+            "(?<dateCreation>\\d{1,2}/\\d{2}/\\d{2})";
 }
