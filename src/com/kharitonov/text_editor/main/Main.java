@@ -19,6 +19,6 @@ public class Main {
         WorkBookBuilder workBookBuilder = new WorkBookBuilder();
         HSSFWorkbook workbook = workBookBuilder.build(fuelSummary);
         ExcelFileWriter excelWriter = new ExcelFileWriter();
-        excelWriter.write(workbook,"Fuel.xls");
+        excelWriter.write(workbook, "Fuel.xls");
     }
 }
