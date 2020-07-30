@@ -52,6 +52,25 @@ public class RegexContainer {
             "(?<month>\\p{L}+)(\\s+)" +
                     "(?<year>\\d+)(\\s+ГОД\\s+\\d+\\s+ДАТА\\sСЧЕТА\\s)" +
                     "(?<dateCreation>\\d{1,2}/\\d{2}/\\d{2})(\\s+ЛИСТ\\s+1)";
+    public static final String REGEX_FUEL =
+            "((?<petrolAI92>БЕНЗИН АИ-92)|" +
+                    "(?<petrolAI95>БЕНЗИН АИ-95)|" +
+                    "(?<diesel>ДИЗТОПЛИВО))(?=\\s+\\d{2}\\.\\d{2})";
+    public static final String SUMMARY_TEXT =
+            "ИТОГО ПО АП";
+    public static final String REGEX_GAS_SUMMARY =
+            "((?<summaryAI92>БЕНЗИН АИ-92)|" +
+                    "(?<summaryAI95>БЕНЗИН АИ-95)|" +
+                    "(?<summaryDiesel>ДИЗТОПЛИВО))(\\s+)" +
+                    "(?<kilometrageSummary>\\d+\\.?\\d?)(\\s+)" +
+                    "(?<ridersNumberSummary>\\d+)?(\\s+)" +
+                    "(?<fuelReceivedSummary>\\d+\\.\\d+)(\\s+)" +
+                    "(?<fuelReturnedSummary>\\d+\\.?\\d?)(\\s+)" +
+                    "(?<usageWayBillSummary>\\d+\\.\\d+)(\\s+)" +
+                    "(?<cargoTrafficSummary>\\d+)(\\s+)" +
+                    "(?<receivedFuelSummaryOfficial>\\d+\\.\\d+)(\\s+\\d+\\s+)" +
+                    "(?<usageNormalSummary>\\d+\\.\\d+)(\\s+)" +
+                    "(?<economySummary>\\d+\\.\\d+)";
 
     private RegexContainer() {
     }

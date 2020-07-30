@@ -7,7 +7,7 @@ import org.apache.poi.hssf.usermodel.*;
 
 import java.util.Map;
 
-public class WorkBookBuilder {
+public class FuelSummaryExcelBuilder {
     private static final int HEADER_ROW_INDEX = 0;
     private static final String SHEET_NAME = "Default";
     private static final String NUMBER_COLUMN = "  Гар. №  ";

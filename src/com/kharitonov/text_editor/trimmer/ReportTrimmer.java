@@ -11,12 +11,18 @@ public class ReportTrimmer {
                         "(?<truckSummary>%s)|" +
                         "(?<driversText>%s)|" +
                         "(?<driver>%s)|" +
-                        "(?<header>%s)",
+                        "(?<header>%s)|" +
+                        "(?<gasSummary>%s)|" +
+                        "(?<summaryText>%s)|" +
+                        "(?<fuelText>%s)",
                 RegexContainer.REGEX_TRIP,
                 RegexContainer.REGEX_TRUCK_SUMMARY,
                 RegexContainer.DRIVERS_TEXT,
                 RegexContainer.REGEX_DRIVER,
-                RegexContainer.REGEX_HEADER);
+                RegexContainer.REGEX_HEADER,
+                RegexContainer.REGEX_GAS_SUMMARY,
+                RegexContainer.SUMMARY_TEXT,
+                RegexContainer.REGEX_FUEL);
         Pattern pattern = Pattern.compile(finalRegex);
         Matcher matcher = pattern.matcher(data);
         StringBuilder sb = new StringBuilder();

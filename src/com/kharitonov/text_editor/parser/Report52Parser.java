@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ReportParser {
+public class Report52Parser {
     public List<Trip> parseTrips(String data) {
         Pattern pattern = Pattern.compile(RegexContainer.REGEX_TRIP);
         Matcher matcher = pattern.matcher(data);
@@ -52,6 +52,7 @@ public class ReportParser {
         Matcher matcher = pattern.matcher(data);
         List<TruckSummary> truckSummaryList = new ArrayList<>();
         while (matcher.find()) {
+
             TruckSummaryCreator creator = new TruckSummaryCreator();
             TruckSummary truckSummary = creator.create(matcher);
             truckSummaryList.add(truckSummary);
