@@ -19,7 +19,7 @@ public class Report52Parser {
     public Map<Integer,Trip> parseTrips(String data) {
         Pattern pattern = Pattern.compile(RegexContainer.REGEX_TRIP);
         Matcher matcher = pattern.matcher(data);
-        Map<Integer,Trip> tripMap = new HashMap();
+        Map<Integer,Trip> tripMap = new HashMap<>();
         while (matcher.find()) {
             Trip trip = new TripCreator().create(matcher);
             tripMap.put(matcher.end(),trip);

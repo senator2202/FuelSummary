@@ -11,8 +11,12 @@ public class WayBillCreator {
         int intId;
         double doubleFuelReceived;
         double doubleFuelReturned;
-        intPack = Integer.parseInt(pack);
-        intId = Integer.parseInt(id);
+        intPack = pack == null
+                ? 0
+                : Integer.parseInt(pack);
+        intId = id == null
+                ? 0
+                : Integer.parseInt(id);
         doubleFuelReceived = Double.parseDouble(fuelReceived);
         doubleFuelReturned = Double.parseDouble(fuelReturned);
         return new WayBill(intPack, intId, doubleFuelReceived,

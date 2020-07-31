@@ -2,13 +2,15 @@ package com.kharitonov.text_editor.creator;
 
 import com.kharitonov.text_editor.constant.GroupNames;
 import com.kharitonov.text_editor.constant.RegexContainer;
-import com.kharitonov.text_editor.entity.*;
+import com.kharitonov.text_editor.entity.Truck;
+import com.kharitonov.text_editor.entity.TruckDriver;
 import com.kharitonov.text_editor.entity.fuel.FuelBalance;
 import com.kharitonov.text_editor.entity.fuel.FuelUsage;
+import com.kharitonov.text_editor.entity.report.TruckDriverSummary;
 import com.kharitonov.text_editor.entity.report.TruckSummary;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +47,8 @@ public class TruckSummaryCreator {
         int numberOfRiders = ridersNumber == null || ridersNumber.isEmpty()
                 ? 0
                 : Integer.parseInt(ridersNumber);
-        Map<TruckDriver, Double> economyMap = getEconomy(matcher);
+        List<TruckDriverSummary> truckDriverSummaries =
+                getTruckDriverSummaries(matcher);
         return TruckSummary.TruckSummaryBuilder
                 .aTruckSummary()
                 .withReportPosition(matcher.start())
@@ -57,30 +60,39 @@ public class TruckSummaryCreator {
                 .withDayLast(Integer.parseInt(dayLast))
                 .withKilometrage(Double.parseDouble(kilometrage))
                 .withCargoTraffic(Integer.parseInt(cargoTraffic))
-                .withFuelEconomy(economyMap)
+                .withTruckDriverSummaries(truckDriverSummaries)
                 .build();
     }
 
-    private Map<TruckDriver, Double> getEconomy(Matcher matcher) {
+    private List<TruckDriverSummary> getTruckDriverSummaries(Matcher matcher) {
         Pattern p = Pattern.compile(RegexContainer.REGEX_DRIVER);
         Matcher m = p.matcher(matcher.group());
-        Map<TruckDriver, Double> economyMap = new HashMap<>();
+        List<TruckDriverSummary> list = new ArrayList<>();
         while (m.find()) {
             String id = m.group(GroupNames.DRIVER_ID);
             String name = m.group(GroupNames.DRIVER_NAME);
+            String kilometrage = m.group(GroupNames.DRIVER_KILOMETRAGE);
+            String cargoTraffic = m.group(GroupNames.DRIVER_CARGO_TRAFFIC);
+            String fuelReceived = m.group(GroupNames.DRIVER_FUEL_RECEIVED);
+            String usageNormal = m.group(GroupNames.DRIVER_USAGE_NORMAL);
+            String usageWayBill = m.group(GroupNames.DRIVER_USAGE_WAY_BILL);
             String economy = m.group(GroupNames.DRIVER_ECONOMY);
             TruckDriver driver = new TruckDriver(Integer.parseInt(id),
                     name);
-            economyMap.put(driver, Double.parseDouble(economy));
+            FuelUsage fuelUsage = new FuelUsage(Double.parseDouble(usageNormal),
+                    Double.parseDouble(usageWayBill));
+            TruckDriverSummary summary = TruckDriverSummary
+                    .TruckDriverSummaryBuilder
+                    .aTruckDriverSummary()
+                    .withDriver(driver)
+                    .withCargoTraffic(Integer.parseInt(cargoTraffic))
+                    .withEconomy(Double.parseDouble(economy))
+                    .withFuelReceived(Double.parseDouble(fuelReceived))
+                    .withKilometrage(Double.parseDouble(kilometrage))
+                    .withFuelUsage(fuelUsage)
+                    .build();
+            list.add(summary);
         }
-        if (economyMap.isEmpty()) {
-            String name = matcher.group(GroupNames.DRIVER_NAME_TRIP);
-            String id = matcher.group(GroupNames.DRIVER_ID_TRIP);
-            String economy = matcher.group(GroupNames.FUEL_ECONOMY);
-            TruckDriver driver = new TruckDriver(Integer.parseInt(id),
-                    name);
-            economyMap.put(driver, Double.parseDouble(economy));
-        }
-        return economyMap;
+        return list;
     }
 }

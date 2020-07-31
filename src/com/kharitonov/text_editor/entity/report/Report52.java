@@ -43,16 +43,6 @@ public class Report52 {
                 .unmodifiableList(new ArrayList<>(truckSummaryMap.values()));
     }
 
-    public List<TruckSummary> generateTruckSummaries() {
-        List<TruckSummary> truckSummaries = new ArrayList<>();
-        for (int i = 0; i < tripMap.size(); i++) {
-            TruckSummary truckSummary = TruckSummary.TruckSummaryBuilder
-                    .aTruckSummary()
-                    .build();
-        }
-        return null;
-    }
-
     public Report52Summary getSummary() {
         return summary;
     }

@@ -6,6 +6,7 @@ import com.kharitonov.text_editor.exception.ProjectException;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
 
 import java.util.Iterator;
 
@@ -24,13 +25,13 @@ public class TSExcelUpdater {
     public HSSFWorkbook update(HSSFWorkbook workbook, Report52 report52)
             throws ProjectException {
         HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
-        Iterator<HSSFRow> rowIterator = sheet.rowIterator();
+        Iterator<Row> rowIterator = sheet.rowIterator();
         Iterator<TruckSummary> truckSummaryIterator =
                 report52.getTruckSummaryList().iterator();
         short columnIndex = (short) (report52.getHeader().getMonth()
                 .getIndex() + DELTA);
         while (truckSummaryIterator.hasNext()) {
-            HSSFRow row = rowIterator.next();
+            Row row = rowIterator.next();
             TruckSummary truckSummary = truckSummaryIterator.next();
             try {
                 while (!isRequiredIndex(row.getRowNum()) ||

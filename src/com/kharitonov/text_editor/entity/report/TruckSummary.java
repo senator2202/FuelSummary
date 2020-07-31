@@ -1,11 +1,11 @@
 package com.kharitonov.text_editor.entity.report;
 
+import com.kharitonov.text_editor.entity.Truck;
 import com.kharitonov.text_editor.entity.fuel.FuelBalance;
 import com.kharitonov.text_editor.entity.fuel.FuelUsage;
-import com.kharitonov.text_editor.entity.Truck;
-import com.kharitonov.text_editor.entity.TruckDriver;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Objects;
 
 public class TruckSummary extends ReportContext {
 
@@ -17,7 +17,7 @@ public class TruckSummary extends ReportContext {
     private int ridersNumber;
     private FuelBalance fuelBalance;
     private FuelUsage fuelUsage;
-    private Map<TruckDriver, Double> fuelEconomy;
+    private List<TruckDriverSummary> truckDriverSummaryList;
 
     private TruckSummary(int position) {
         super(position);
@@ -87,12 +87,12 @@ public class TruckSummary extends ReportContext {
         this.fuelUsage = fuelUsage;
     }
 
-    public Map<TruckDriver, Double> getFuelEconomy() {
-        return fuelEconomy;
+    public List<TruckDriverSummary> getTruckDriverSummaryList() {
+        return truckDriverSummaryList;
     }
 
-    public void setFuelEconomy(Map<TruckDriver, Double> fuelEconomy) {
-        this.fuelEconomy = fuelEconomy;
+    public void setTruckDriverSummaryList(List<TruckDriverSummary> truckDriverSummaryList) {
+        this.truckDriverSummaryList = truckDriverSummaryList;
     }
 
     public static final class TruckSummaryBuilder {
@@ -105,7 +105,7 @@ public class TruckSummary extends ReportContext {
         private int ridersNumber;
         private FuelBalance fuelBalance;
         private FuelUsage fuelUsage;
-        private Map<TruckDriver, Double> fuelEconomy;
+        private List<TruckDriverSummary> truckDriverSummaryList;
 
         private TruckSummaryBuilder() {
         }
@@ -159,8 +159,9 @@ public class TruckSummary extends ReportContext {
             return this;
         }
 
-        public TruckSummaryBuilder withFuelEconomy(Map<TruckDriver, Double> fuelEconomy) {
-            this.fuelEconomy = fuelEconomy;
+        public TruckSummaryBuilder withTruckDriverSummaries(
+                List<TruckDriverSummary> truckDriverSummaryList) {
+            this.truckDriverSummaryList = truckDriverSummaryList;
             return this;
         }
 
@@ -174,7 +175,7 @@ public class TruckSummary extends ReportContext {
             truckSummary.setRidersNumber(ridersNumber);
             truckSummary.setFuelBalance(fuelBalance);
             truckSummary.setFuelUsage(fuelUsage);
-            truckSummary.setFuelEconomy(fuelEconomy);
+            truckSummary.setTruckDriverSummaryList(truckDriverSummaryList);
             return truckSummary;
         }
     }
@@ -183,6 +184,7 @@ public class TruckSummary extends ReportContext {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         TruckSummary that = (TruckSummary) o;
         if (dayFirst != that.dayFirst) return false;
         if (dayLast != that.dayLast) return false;
@@ -190,20 +192,21 @@ public class TruckSummary extends ReportContext {
             return false;
         if (cargoTraffic != that.cargoTraffic) return false;
         if (ridersNumber != that.ridersNumber) return false;
-        if (truck != null ? !truck.equals(that.truck) : that.truck != null)
+        if (!Objects.equals(truck, that.truck))
             return false;
-        if (fuelBalance != null ? !fuelBalance.equals(that.fuelBalance) : that.fuelBalance != null)
+        if (!Objects.equals(fuelBalance, that.fuelBalance))
             return false;
-        if (fuelUsage != null ? !fuelUsage.equals(that.fuelUsage) : that.fuelUsage != null)
+        if (!Objects.equals(fuelUsage, that.fuelUsage))
             return false;
-        return fuelEconomy != null ? fuelEconomy.equals(that.fuelEconomy) : that.fuelEconomy == null;
+        return Objects.equals(truckDriverSummaryList,
+                that.truckDriverSummaryList);
     }
 
     @Override
     public int hashCode() {
-        int result;
+        int result = super.hashCode();
         long temp;
-        result = dayFirst;
+        result = 31 * result + dayFirst;
         result = 31 * result + dayLast;
         result = 31 * result + (truck != null ? truck.hashCode() : 0);
         temp = Double.doubleToLongBits(kilometrage);
@@ -212,7 +215,9 @@ public class TruckSummary extends ReportContext {
         result = 31 * result + ridersNumber;
         result = 31 * result + (fuelBalance != null ? fuelBalance.hashCode() : 0);
         result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
-        result = 31 * result + (fuelEconomy != null ? fuelEconomy.hashCode() : 0);
+        result = 31 * result + (truckDriverSummaryList != null
+                ? truckDriverSummaryList.hashCode()
+                : 0);
         return result;
     }
 }

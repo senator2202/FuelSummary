@@ -20,9 +20,14 @@ public class GroupNames {
     public static final String USAGE_NORMAL = "usageNormal";
     public static final String USAGE_WAY_BILL = "usageWayBill";
     public static final String CAR_NUMBER = "carNumber";
-    public static final String DRIVER_ID = "driverId";
-    public static final String DRIVER_NAME = "driverName";
-    public static final String DRIVER_ECONOMY = "driverEconomy";
+    public static final String DRIVER_ID = "idDriver";
+    public static final String DRIVER_NAME = "nameDriver";
+    public static final String DRIVER_KILOMETRAGE = "kilometrageDriver";
+    public static final String DRIVER_CARGO_TRAFFIC = "cargoTrafficDriver";
+    public static final String DRIVER_FUEL_RECEIVED = "fuelReceivedDriver";
+    public static final String DRIVER_USAGE_NORMAL= "usageNormalDriver";
+    public static final String DRIVER_USAGE_WAY_BILL= "usageWayBillDriver";
+    public static final String DRIVER_ECONOMY = "economyDriver";
     public static final String DRIVER_NAME_TRIP = "driverNameTrip";
     public static final String DRIVER_ID_TRIP = "driverIdTrip";
     public static final String FUEL_ECONOMY = "fuelEconomy";

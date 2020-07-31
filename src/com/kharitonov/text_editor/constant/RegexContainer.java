@@ -4,13 +4,13 @@ public class RegexContainer {
     public static final String REGEX_TRIP =
             "(?<dateTrip>\\d\\d\\.\\d\\d)(\\s+)" +
                     "(?<officialBillId>\\d?)(\\s+)" +
-                    "(?<pack>\\d+)(\\s+)" +
-                    "(?<wayBillId>\\d+)(\\s+)" +
+                    "(?<pack>\\d+)?(\\s+)" +
+                    "(?<wayBillId>\\d+)?(\\s+)" +
                     "(?<driverNameTrip>\\p{L}+\\s\\p{L}[\\s\\.]\\p{L}\\.?)(\\s+)" +
                     "(?<driverIdTrip>\\d+)(\\s+)" +
                     "(?<kilometrageTrip>\\d+\\.\\d+)(\\s+)" +
                     "(?<cargoTrafficTrip>\\d+)(\\s+)" +
-                    "(?<ridersNumberTrip>\\d)?(\\s+)" +
+                    "(?<ridersNumberTrip>\\d+)?(\\s+)" +
                     "(?<fuelStartTrip>\\d+\\.\\d+)(\\s+)" +
                     "(?<receivedFuelTrip>\\d+\\.\\d?)(\\s+)" +
                     "(?<receivedFuelOfficialTrip>\\d+\\.\\d?)(\\s+)" +
@@ -45,9 +45,15 @@ public class RegexContainer {
     public static final String DRIVERS_TEXT =
             "(В\\sТОМ\\sЧИСЛЕ\\sПО\\sВОДИТЕЛЯМ)";
     public static final String REGEX_DRIVER =
-            "(?<driverName>\\p{L}+\\s\\p{L}[\\s\\.]\\p{L}\\.?)(\\s+)" +
-                    "(?<driverId>\\d+)(\\s+\\d+\\.\\d+\\s+\\s+\\d+\\s+\\d+\\.\\d+\\s+\\d+\\s+\\d+\\.\\d+\\s+\\d+\\.\\d+\\s+)" +
-                    "(?<driverEconomy>-?\\d+\\.\\d+)";
+            "(?<nameDriver>\\p{L}+\\s\\p{L}[\\s\\.]\\p{L}\\.?)(\\s+)" +
+                    "(?<idDriver>\\d+)(\\s+)" +
+                    "(?<kilometrageDriver>\\d+\\.\\d+)(\\s+)" +
+                    "(?<cargoTrafficDriver>\\d+)(\\s+)" +
+                    "(?<fuelReceivedDriver>\\d+\\.\\d+)(\\s+)" +
+                    "(?<fuelReturnedDriver>\\d+)(\\s+)" +
+                    "(?<usageNormalDriver>\\d+\\.\\d+)(\\s+)" +
+                    "(?<usageWayBillDriver>\\d+\\.\\d+)(\\s+)" +
+                    "(?<economyDriver>-?\\d+\\.\\d+)";
     public static final String REGEX_HEADER =
             "(?<month>\\p{L}+)(\\s+)" +
                     "(?<year>\\d+)(\\s+ГОД\\s+\\d+\\s+ДАТА\\sСЧЕТА\\s)" +

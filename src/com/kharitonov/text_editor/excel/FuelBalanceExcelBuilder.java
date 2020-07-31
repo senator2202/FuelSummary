@@ -1,11 +1,10 @@
 package com.kharitonov.text_editor.excel;
 
 import com.kharitonov.text_editor.entity.report.Report52;
-import com.kharitonov.text_editor.entity.TruckDriver;
+import com.kharitonov.text_editor.entity.report.TruckDriverSummary;
 import com.kharitonov.text_editor.entity.report.TruckSummary;
 import org.apache.poi.hssf.usermodel.*;
-
-import java.util.Map;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 
 public class FuelBalanceExcelBuilder {
     private static final int HEADER_ROW_INDEX = 0;
@@ -41,13 +40,13 @@ public class FuelBalanceExcelBuilder {
     private void createSummary(HSSFWorkbook workbook, Report52 report52) {
         int counter = 1;
         HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
-        for (TruckSummary truckSummary:report52.getTruckSummaryList()) {
+        for (TruckSummary truckSummary : report52.getTruckSummaryList()) {
             int garageNumber = truckSummary.getTruck().getGarageNumber();
             int lastDay = truckSummary.getDayLast();
-            for (Map.Entry<TruckDriver, Double> entry :
-                    truckSummary.getFuelEconomy().entrySet()) {
-                String driverName = entry.getKey().getName();
-                Double economy = entry.getValue();
+            for (TruckDriverSummary summary :
+                    truckSummary.getTruckDriverSummaryList()) {
+                String driverName = summary.getDriver().getName();
+                Double economy = summary.getEconomy();
                 HSSFRow row = sheet.createRow(counter++);
                 HSSFCellStyle style = createCellStyle(workbook);
                 StringBuilder sb = new StringBuilder();
@@ -70,11 +69,11 @@ public class FuelBalanceExcelBuilder {
     private HSSFCellStyle createHeaderStyle(HSSFWorkbook workbook) {
         HSSFFont font = workbook.createFont();
         HSSFCellStyle style = workbook.createCellStyle();
-        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        font.setBold(true);
         font.setFontHeight(HEADER_FONT_SIZE);
         font.setFontName(FONT_NAME);
         style.setFont(font);
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        style.setAlignment(HorizontalAlignment.CENTER);
         return style;
     }
 
@@ -103,7 +102,7 @@ public class FuelBalanceExcelBuilder {
         font.setFontHeight(CELL_FONT_SIZE);
         font.setFontName(FONT_NAME);
         style.setFont(font);
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        style.setAlignment(HorizontalAlignment.CENTER);
         return style;
     }
 }
