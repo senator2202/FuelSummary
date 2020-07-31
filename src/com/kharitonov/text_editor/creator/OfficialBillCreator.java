@@ -1,6 +1,6 @@
 package com.kharitonov.text_editor.creator;
 
-import com.kharitonov.text_editor.entity.OfficialBill;
+import com.kharitonov.text_editor.entity.bill.OfficialBill;
 
 public class OfficialBillCreator {
     OfficialBill create(String id,

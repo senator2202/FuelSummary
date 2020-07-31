@@ -1,35 +1,39 @@
 package com.kharitonov.text_editor.parser;
 
 import com.kharitonov.text_editor.constant.RegexContainer;
+import com.kharitonov.text_editor.creator.FuelSummaryCreator;
 import com.kharitonov.text_editor.creator.ReportHeaderCreator;
 import com.kharitonov.text_editor.creator.TripCreator;
 import com.kharitonov.text_editor.creator.TruckSummaryCreator;
-import com.kharitonov.text_editor.entity.FuelSummary;
-import com.kharitonov.text_editor.entity.ReportHeader;
-import com.kharitonov.text_editor.entity.Trip;
-import com.kharitonov.text_editor.entity.TruckSummary;
+import com.kharitonov.text_editor.entity.report.FuelSummary;
+import com.kharitonov.text_editor.entity.report.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Report52Parser {
-    public List<Trip> parseTrips(String data) {
+    public Map<Integer,Trip> parseTrips(String data) {
         Pattern pattern = Pattern.compile(RegexContainer.REGEX_TRIP);
         Matcher matcher = pattern.matcher(data);
-        List<Trip> tripList = new ArrayList<>();
+        Map<Integer,Trip> tripMap = new HashMap();
         while (matcher.find()) {
             Trip trip = new TripCreator().create(matcher);
-            tripList.add(trip);
+            tripMap.put(matcher.end(),trip);
         }
-        return tripList;
+        return tripMap;
     }
 
-    public FuelSummary parseFuelSummary(String data) {
-        List<TruckSummary> truckSummaryList = parseTruckSummaries(data);
+    public Report52 parseReport52(String data) {
+        Map<Integer,Trip> tripList = parseTrips(data);
+        Map<Integer,TruckSummary> truckSummaryList = parseTruckSummaries(data);
         ReportHeader reportHeader = parseReportHeader(data);
-        return new FuelSummary(reportHeader, truckSummaryList);
+        Report52Summary report52Summary = parseFuelSummary(data);
+        return new Report52(reportHeader, tripList,
+                truckSummaryList, report52Summary);
     }
 
     public ReportHeader parseReportHeader(String data) {
@@ -42,21 +46,32 @@ public class Report52Parser {
         return reportHeader;
     }
 
-    public List<TruckSummary> parseTruckSummaries(String data) {
-        String finalRegex = String.format("(%s(\\s+)%s(\\s+))((%s)((\\s+)(%s))+)?",
+    public Map<Integer,TruckSummary> parseTruckSummaries(String data) {
+        String truckSummaryRegex = String.format("(%s(\\s+)%s(\\s+))" +
+                        "((%s)((\\s+)(%s))+)?",
                 RegexContainer.REGEX_TRIP,
                 RegexContainer.REGEX_TRUCK_SUMMARY,
                 RegexContainer.DRIVERS_TEXT,
                 RegexContainer.REGEX_DRIVER);
-        Pattern pattern = Pattern.compile(finalRegex);
+        Pattern pattern = Pattern.compile(truckSummaryRegex);
         Matcher matcher = pattern.matcher(data);
-        List<TruckSummary> truckSummaryList = new ArrayList<>();
+        Map<Integer,TruckSummary> truckSummaryMap = new HashMap<>();
         while (matcher.find()) {
-
             TruckSummaryCreator creator = new TruckSummaryCreator();
             TruckSummary truckSummary = creator.create(matcher);
-            truckSummaryList.add(truckSummary);
+            truckSummaryMap.put(matcher.end(),truckSummary);
         }
-        return truckSummaryList;
+        return truckSummaryMap;
+    }
+
+    public Report52Summary parseFuelSummary(String data) {
+        Pattern pattern = Pattern.compile(RegexContainer.REGEX_FUEL_SUMMARY);
+        Matcher matcher = pattern.matcher(data);
+        List<FuelSummary> fuelSummaries = new ArrayList<>();
+        while (matcher.find()) {
+            FuelSummary fuelSummary = new FuelSummaryCreator().create(matcher);
+            fuelSummaries.add(fuelSummary);
+        }
+        return new Report52Summary(fuelSummaries);
     }
 }

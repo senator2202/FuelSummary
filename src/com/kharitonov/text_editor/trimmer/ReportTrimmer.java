@@ -20,7 +20,7 @@ public class ReportTrimmer {
                 RegexContainer.DRIVERS_TEXT,
                 RegexContainer.REGEX_DRIVER,
                 RegexContainer.REGEX_HEADER,
-                RegexContainer.REGEX_GAS_SUMMARY,
+                RegexContainer.REGEX_FUEL_SUMMARY,
                 RegexContainer.SUMMARY_TEXT,
                 RegexContainer.REGEX_FUEL);
         Pattern pattern = Pattern.compile(finalRegex);

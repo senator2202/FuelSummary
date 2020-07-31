@@ -1,6 +1,6 @@
 package com.kharitonov.text_editor.creator;
 
-import com.kharitonov.text_editor.entity.FuelBalance;
+import com.kharitonov.text_editor.entity.fuel.FuelBalance;
 
 public class FuelBalanceCreator {
     FuelBalance create(String fuelStart,

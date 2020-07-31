@@ -3,6 +3,9 @@ package com.kharitonov.text_editor.creator;
 import com.kharitonov.text_editor.constant.GroupNames;
 import com.kharitonov.text_editor.constant.RegexContainer;
 import com.kharitonov.text_editor.entity.*;
+import com.kharitonov.text_editor.entity.fuel.FuelBalance;
+import com.kharitonov.text_editor.entity.fuel.FuelUsage;
+import com.kharitonov.text_editor.entity.report.TruckSummary;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +48,7 @@ public class TruckSummaryCreator {
         Map<TruckDriver, Double> economyMap = getEconomy(matcher);
         return TruckSummary.TruckSummaryBuilder
                 .aTruckSummary()
+                .withReportPosition(matcher.start())
                 .withTruck(truck)
                 .withFuelBallance(fuelBalance)
                 .withFuelUsage(fuelUsage)

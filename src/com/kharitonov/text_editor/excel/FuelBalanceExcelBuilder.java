@@ -1,13 +1,13 @@
 package com.kharitonov.text_editor.excel;
 
-import com.kharitonov.text_editor.entity.FuelSummary;
+import com.kharitonov.text_editor.entity.report.Report52;
 import com.kharitonov.text_editor.entity.TruckDriver;
-import com.kharitonov.text_editor.entity.TruckSummary;
+import com.kharitonov.text_editor.entity.report.TruckSummary;
 import org.apache.poi.hssf.usermodel.*;
 
 import java.util.Map;
 
-public class FuelSummaryExcelBuilder {
+public class FuelBalanceExcelBuilder {
     private static final int HEADER_ROW_INDEX = 0;
     private static final String SHEET_NAME = "Default";
     private static final String NUMBER_COLUMN = "  Гар. №  ";
@@ -23,10 +23,10 @@ public class FuelSummaryExcelBuilder {
     private static final String FONT_NAME = "Times New Roman";
     private static final String DELIMITER = ".";
 
-    public HSSFWorkbook build(FuelSummary fuelSummary) {
+    public HSSFWorkbook build(Report52 report52) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         createHeader(workbook);
-        createSummary(workbook, fuelSummary);
+        createSummary(workbook, report52);
         return workbook;
     }
 
@@ -38,10 +38,10 @@ public class FuelSummaryExcelBuilder {
         applyStyle(sheet, row, style);
     }
 
-    private void createSummary(HSSFWorkbook workbook, FuelSummary fuelSummary) {
+    private void createSummary(HSSFWorkbook workbook, Report52 report52) {
         int counter = 1;
         HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
-        for (TruckSummary truckSummary : fuelSummary.getTruckSummaryList()) {
+        for (TruckSummary truckSummary:report52.getTruckSummaryList()) {
             int garageNumber = truckSummary.getTruck().getGarageNumber();
             int lastDay = truckSummary.getDayLast();
             for (Map.Entry<TruckDriver, Double> entry :
@@ -52,9 +52,9 @@ public class FuelSummaryExcelBuilder {
                 HSSFCellStyle style = createCellStyle(workbook);
                 StringBuilder sb = new StringBuilder();
                 sb.append(lastDay).append(DELIMITER)
-                        .append(fuelSummary.getHeader().getMonth().getIndex())
+                        .append(report52.getHeader().getMonth().getIndex())
                         .append(DELIMITER)
-                        .append(fuelSummary.getHeader().getYear());
+                        .append(report52.getHeader().getYear());
                 row.createCell(NUMBER_INDEX).setCellValue(garageNumber);
                 row.createCell(DRIVER_INDEX)
                         .setCellValue(new HSSFRichTextString(driverName));

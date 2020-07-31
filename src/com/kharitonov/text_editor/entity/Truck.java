@@ -31,4 +31,25 @@ public class Truck {
     public FuelType getFuelType() {
         return fuelType;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Truck truck = (Truck) o;
+        if (garageNumber != truck.garageNumber) return false;
+        if (modelCode != truck.modelCode) return false;
+        if (carNumber != null ? !carNumber.equals(truck.carNumber) : truck.carNumber != null)
+            return false;
+        return fuelType == truck.fuelType;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = carNumber != null ? carNumber.hashCode() : 0;
+        result = 31 * result + garageNumber;
+        result = 31 * result + modelCode;
+        result = 31 * result + (fuelType != null ? fuelType.hashCode() : 0);
+        return result;
+    }
 }

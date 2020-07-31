@@ -1,7 +1,7 @@
 package com.kharitonov.text_editor.creator;
 
 import com.kharitonov.text_editor.constant.GroupNames;
-import com.kharitonov.text_editor.entity.ReportHeader;
+import com.kharitonov.text_editor.entity.report.ReportHeader;
 import com.kharitonov.text_editor.type.MonthRussian;
 
 import java.util.Calendar;

@@ -1,7 +1,8 @@
 package test.kharitonov.text_editor.excel;
 
-import com.kharitonov.text_editor.entity.FuelSummary;
+import com.kharitonov.text_editor.entity.report.Report52;
 import com.kharitonov.text_editor.excel.Report52ExcelBuilder;
+import com.kharitonov.text_editor.file.reader.ExcelFileReader;
 import com.kharitonov.text_editor.file.reader.ProjectFileReader;
 import com.kharitonov.text_editor.file.writer.ExcelFileWriter;
 import com.kharitonov.text_editor.parser.Report52Parser;
@@ -19,9 +20,11 @@ public class Report52ExcelBuilderTest {
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();
-        FuelSummary fuelSummary = parser.parseFuelSummary(data);
-        HSSFWorkbook workbook = builder.build(fuelSummary);
-        /*ExcelFileWriter writer = new ExcelFileWriter();
-        writer.write(workbook,"Report52.xls");*/
+        Report52 report52 = parser.parseReport52(data);
+        ExcelFileReader reader = new ExcelFileReader();
+        HSSFWorkbook workbook = reader.read("resources\\Report52Base.xls");
+        builder.fillReport(workbook,report52);
+        ExcelFileWriter writer = new ExcelFileWriter();
+        writer.write(workbook,"Report52.xls");
     }
 }

@@ -1,6 +1,6 @@
 package com.kharitonov.text_editor.creator;
 
-import com.kharitonov.text_editor.entity.FuelUsage;
+import com.kharitonov.text_editor.entity.fuel.FuelUsage;
 
 public class FuelUsageCreator {
     FuelUsage create(String usageNormal, String usageWayBill) {

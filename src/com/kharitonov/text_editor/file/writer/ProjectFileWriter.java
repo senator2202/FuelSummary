@@ -1,8 +1,8 @@
 package com.kharitonov.text_editor.file.writer;
 
-import com.kharitonov.text_editor.entity.FuelSummary;
+import com.kharitonov.text_editor.entity.report.Report52;
 import com.kharitonov.text_editor.entity.TruckDriver;
-import com.kharitonov.text_editor.entity.TruckSummary;
+import com.kharitonov.text_editor.entity.report.TruckSummary;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,24 +14,24 @@ public class ProjectFileWriter {
     private static final int NAME_FORMAT_LENGTH = 15;
     private static final int ECONOMY_DAY_LENGTH = 4;
 
-    public void write(FuelSummary fuelSummary, String fileName) {
+    public void write(Report52 report52, String fileName) {
         try (FileWriter writer = new FileWriter(fileName, false)) {
             StringBuilder sb = new StringBuilder();
             sb.append("\t\t\t\tЭкономия\\перерасход топлива на ")
-                    .append(fuelSummary.getHeader()
+                    .append(report52.getHeader()
                             .getDateCreation().get(Calendar.DAY_OF_MONTH))
                     .append(".")
-                    .append(fuelSummary.getHeader()
+                    .append(report52.getHeader()
                             .getDateCreation().get(Calendar.MONTH))
                     .append(".")
-                    .append(fuelSummary.getHeader()
+                    .append(report52.getHeader()
                             .getDateCreation().get(Calendar.YEAR))
                     .append("\n");
             sb.append("Гар. №\t\t").append("Водитель\t\t")
                     .append("Экономия\\перерасход\t\t")
                     .append("Последняя путевка\n");
             for (TruckSummary truckSummary :
-                    fuelSummary.getTruckSummaryList()) {
+                    report52.getTruckSummaryList()) {
                 for (Map.Entry<TruckDriver, Double> entry :
                         truckSummary.getFuelEconomy().entrySet()) {
                     sb.append(truckSummary.getTruck().getGarageNumber());
@@ -42,10 +42,10 @@ public class ProjectFileWriter {
                             .append("\t\t\t\t")
                             .append(truckSummary.getDayLast())
                             .append(".")
-                            .append(fuelSummary.getHeader()
+                            .append(report52.getHeader()
                                     .getMonth().getIndex())
                             .append(".")
-                            .append(fuelSummary.getHeader().getYear());
+                            .append(report52.getHeader().getYear());
                     sb.append("\n");
                 }
             }

@@ -1,6 +1,6 @@
 package com.kharitonov.text_editor.main;
 
-import com.kharitonov.text_editor.entity.FuelSummary;
+import com.kharitonov.text_editor.entity.report.Report52;
 import com.kharitonov.text_editor.excel.TSExcelUpdater;
 import com.kharitonov.text_editor.exception.ProjectException;
 import com.kharitonov.text_editor.file.reader.ExcelFileReader;
@@ -17,12 +17,12 @@ public class Main {
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();
-        FuelSummary fuelSummary = parser.parseFuelSummary(data);
+        Report52 report52 = parser.parseReport52(data);
         ExcelFileReader excelReader = new ExcelFileReader();
         HSSFWorkbook workbook = excelReader.read("resources\\ТО-1-2 2020.xls");
         TSExcelUpdater tsExcelUpdater = new TSExcelUpdater();
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
-        tsExcelUpdater.update(workbook, fuelSummary);
+        tsExcelUpdater.update(workbook, report52);
         excelFileWriter.write(workbook,"TS.xls");
     }
 }

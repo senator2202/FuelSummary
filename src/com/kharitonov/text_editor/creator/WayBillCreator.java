@@ -1,6 +1,6 @@
 package com.kharitonov.text_editor.creator;
 
-import com.kharitonov.text_editor.entity.WayBill;
+import com.kharitonov.text_editor.entity.bill.WayBill;
 
 public class WayBillCreator {
     WayBill create(String id,

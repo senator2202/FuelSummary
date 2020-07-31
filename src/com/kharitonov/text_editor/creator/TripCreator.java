@@ -1,7 +1,11 @@
 package com.kharitonov.text_editor.creator;
 
 import com.kharitonov.text_editor.constant.GroupNames;
-import com.kharitonov.text_editor.entity.*;
+import com.kharitonov.text_editor.entity.TruckDriver;
+import com.kharitonov.text_editor.entity.bill.OfficialBill;
+import com.kharitonov.text_editor.entity.bill.WayBill;
+import com.kharitonov.text_editor.entity.fuel.FuelUsage;
+import com.kharitonov.text_editor.entity.report.Trip;
 
 import java.util.regex.Matcher;
 
@@ -30,7 +34,7 @@ public class TripCreator {
         OfficialBill officialBill = new OfficialBillCreator()
                 .create(officialBillId, receivedFuelOfficial,
                         returnedFuelOfficial);
-        WayBill wayBill = new WayBillCreator().create(wayBillId, pack,
+        WayBill wayBill = new WayBillCreator().create(pack, wayBillId,
                 receivedFuel, returnedFuel);
         TruckDriver truckDriver =
                 new TruckDriverCreator().create(driverId, driverName);
@@ -40,6 +44,7 @@ public class TripCreator {
                 ? 0
                 : Integer.parseInt(ridersNumber);
         return Trip.TripBuilder.aTrip()
+                .withReportPosition(matcher.start())
                 .withDate(date)
                 .withOfficialBill(officialBill)
                 .withWayBill(wayBill)

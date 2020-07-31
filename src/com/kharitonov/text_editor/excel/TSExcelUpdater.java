@@ -1,7 +1,7 @@
 package com.kharitonov.text_editor.excel;
 
-import com.kharitonov.text_editor.entity.FuelSummary;
-import com.kharitonov.text_editor.entity.TruckSummary;
+import com.kharitonov.text_editor.entity.report.Report52;
+import com.kharitonov.text_editor.entity.report.TruckSummary;
 import com.kharitonov.text_editor.exception.ProjectException;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -21,13 +21,13 @@ public class TSExcelUpdater {
     private static final short TS_2_INDEX = 15;
     private static final short SUMM_INDEX = 39;
 
-    public HSSFWorkbook update(HSSFWorkbook workbook, FuelSummary fuelSummary)
+    public HSSFWorkbook update(HSSFWorkbook workbook, Report52 report52)
             throws ProjectException {
         HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
         Iterator<HSSFRow> rowIterator = sheet.rowIterator();
         Iterator<TruckSummary> truckSummaryIterator =
-                fuelSummary.getTruckSummaryList().iterator();
-        short columnIndex = (short) (fuelSummary.getHeader().getMonth()
+                report52.getTruckSummaryList().iterator();
+        short columnIndex = (short) (report52.getHeader().getMonth()
                 .getIndex() + DELTA);
         while (truckSummaryIterator.hasNext()) {
             HSSFRow row = rowIterator.next();

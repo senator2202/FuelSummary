@@ -1,8 +1,13 @@
-package com.kharitonov.text_editor.entity;
+package com.kharitonov.text_editor.entity.report;
+
+import com.kharitonov.text_editor.entity.fuel.FuelBalance;
+import com.kharitonov.text_editor.entity.fuel.FuelUsage;
+import com.kharitonov.text_editor.entity.Truck;
+import com.kharitonov.text_editor.entity.TruckDriver;
 
 import java.util.Map;
 
-public class TruckSummary {
+public class TruckSummary extends ReportContext {
 
     private int dayFirst;
     private int dayLast;
@@ -14,7 +19,8 @@ public class TruckSummary {
     private FuelUsage fuelUsage;
     private Map<TruckDriver, Double> fuelEconomy;
 
-    private TruckSummary() {
+    private TruckSummary(int position) {
+        super(position);
     }
 
     public int getDayFirst() {
@@ -90,6 +96,7 @@ public class TruckSummary {
     }
 
     public static final class TruckSummaryBuilder {
+        private int reportPosition;
         private int dayFirst;
         private int dayLast;
         private Truck truck;
@@ -105,6 +112,11 @@ public class TruckSummary {
 
         public static TruckSummaryBuilder aTruckSummary() {
             return new TruckSummaryBuilder();
+        }
+
+        public TruckSummaryBuilder withReportPosition(int reportPosition) {
+            this.reportPosition = reportPosition;
+            return this;
         }
 
         public TruckSummaryBuilder withDayFirst(int dayFirst) {
@@ -153,7 +165,7 @@ public class TruckSummary {
         }
 
         public TruckSummary build() {
-            TruckSummary truckSummary = new TruckSummary();
+            TruckSummary truckSummary = new TruckSummary(reportPosition);
             truckSummary.setDayFirst(dayFirst);
             truckSummary.setDayLast(dayLast);
             truckSummary.setTruck(truck);
@@ -165,5 +177,42 @@ public class TruckSummary {
             truckSummary.setFuelEconomy(fuelEconomy);
             return truckSummary;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TruckSummary that = (TruckSummary) o;
+        if (dayFirst != that.dayFirst) return false;
+        if (dayLast != that.dayLast) return false;
+        if (Double.compare(that.kilometrage, kilometrage) != 0)
+            return false;
+        if (cargoTraffic != that.cargoTraffic) return false;
+        if (ridersNumber != that.ridersNumber) return false;
+        if (truck != null ? !truck.equals(that.truck) : that.truck != null)
+            return false;
+        if (fuelBalance != null ? !fuelBalance.equals(that.fuelBalance) : that.fuelBalance != null)
+            return false;
+        if (fuelUsage != null ? !fuelUsage.equals(that.fuelUsage) : that.fuelUsage != null)
+            return false;
+        return fuelEconomy != null ? fuelEconomy.equals(that.fuelEconomy) : that.fuelEconomy == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = dayFirst;
+        result = 31 * result + dayLast;
+        result = 31 * result + (truck != null ? truck.hashCode() : 0);
+        temp = Double.doubleToLongBits(kilometrage);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + cargoTraffic;
+        result = 31 * result + ridersNumber;
+        result = 31 * result + (fuelBalance != null ? fuelBalance.hashCode() : 0);
+        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
+        result = 31 * result + (fuelEconomy != null ? fuelEconomy.hashCode() : 0);
+        return result;
     }
 }
