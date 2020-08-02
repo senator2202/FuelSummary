@@ -59,12 +59,9 @@ public class Report52ExcelBuilder {
                 counter++;
             } else {
                 TruckSummary truckSummary = (TruckSummary) value;
-                int rowIndex =
-                        addTruckSummary(sheet, counter, truckSummary);
-                rowIndex = addTruckDriverSummaries(sheet, rowIndex,
+                counter = addTruckSummary(sheet, counter, truckSummary);
+                counter = addTruckDriverSummaries(sheet, counter,
                         truckSummary);
-                int delta = rowIndex - counter;
-                counter += delta + 1;
             }
         }
         addReportSummary(sheet, counter, report52.getSummary());
@@ -146,7 +143,7 @@ public class Report52ExcelBuilder {
                 truckSummary.getTruck().getCarNumber());
         cell = row.createCell(TRUCK_SUMMARY_START_INDEX);
         cell.setCellValue(new HSSFRichTextString(text));
-        return rowIndex;
+        return ++rowIndex;
     }
 
     private int addTruckDriverSummaries(HSSFSheet sheet, int rowIndex,
