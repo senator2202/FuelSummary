@@ -23,6 +23,6 @@ public class Main {
         TSExcelUpdater tsExcelUpdater = new TSExcelUpdater();
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
         tsExcelUpdater.update(workbook, report52);
-        excelFileWriter.write(workbook,"TS.xls");
+        excelFileWriter.write(workbook, "TS.xls");
     }
 }

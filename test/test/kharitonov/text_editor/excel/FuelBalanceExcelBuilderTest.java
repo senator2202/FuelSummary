@@ -10,7 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.testng.annotations.Test;
 
 public class FuelBalanceExcelBuilderTest {
-    private FuelBalanceExcelBuilder builder = new FuelBalanceExcelBuilder();
+    private final FuelBalanceExcelBuilder builder = new FuelBalanceExcelBuilder();
 
     @Test
     public void testBuild() {

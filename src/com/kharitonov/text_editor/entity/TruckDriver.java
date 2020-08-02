@@ -1,5 +1,7 @@
 package com.kharitonov.text_editor.entity;
 
+import java.util.Objects;
+
 public class TruckDriver {
     private final int id;
     private final String name;
@@ -23,7 +25,7 @@ public class TruckDriver {
         if (o == null || getClass() != o.getClass()) return false;
         TruckDriver driver = (TruckDriver) o;
         if (id != driver.id) return false;
-        return name != null ? name.equals(driver.name) : driver.name == null;
+        return Objects.equals(name, driver.name);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.kharitonov.text_editor.entity.report;
 
 public class ReportContext {
-    private int reportPosition;
+    private final int reportPosition;
 
     public ReportContext(int reportPosition) {
         this.reportPosition = reportPosition;

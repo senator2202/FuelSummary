@@ -2,10 +2,11 @@ package com.kharitonov.text_editor.entity.report;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Report52Summary {
     private static final String SUMMARY_LABEL = "Итого по АП";
-    private List<FuelSummary> fuelSummaryList;
+    private final List<FuelSummary> fuelSummaryList;
 
     public Report52Summary(List<FuelSummary> fuelSummaryList) {
         this.fuelSummaryList = fuelSummaryList;
@@ -24,7 +25,7 @@ public class Report52Summary {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Report52Summary that = (Report52Summary) o;
-        return fuelSummaryList != null ? fuelSummaryList.equals(that.fuelSummaryList) : that.fuelSummaryList == null;
+        return Objects.equals(fuelSummaryList, that.fuelSummaryList);
     }
 
     @Override

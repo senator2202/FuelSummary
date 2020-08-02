@@ -1,6 +1,6 @@
 package com.kharitonov.text_editor.file.writer;
 
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
 import java.io.FileOutputStream;

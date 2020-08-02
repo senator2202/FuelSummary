@@ -12,7 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.testng.annotations.Test;
 
 public class TSExcelUpdaterTest {
-    TSExcelUpdater updater = new TSExcelUpdater();
+    final TSExcelUpdater updater = new TSExcelUpdater();
 
     @Test
     public void testUpdate() throws ProjectException {
@@ -26,6 +26,6 @@ public class TSExcelUpdaterTest {
         HSSFWorkbook workbook = excelReader.read("resources\\ТО-1-2 2020.xls");
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
         updater.update(workbook, report52);
-        excelFileWriter.write(workbook,"TS.xls");
+        excelFileWriter.write(workbook, "TS.xls");
     }
 }

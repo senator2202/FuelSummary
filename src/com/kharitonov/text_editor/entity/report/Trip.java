@@ -1,9 +1,11 @@
 package com.kharitonov.text_editor.entity.report;
 
-import com.kharitonov.text_editor.entity.fuel.FuelUsage;
-import com.kharitonov.text_editor.entity.bill.OfficialBill;
 import com.kharitonov.text_editor.entity.TruckDriver;
+import com.kharitonov.text_editor.entity.bill.OfficialBill;
 import com.kharitonov.text_editor.entity.bill.WayBill;
+import com.kharitonov.text_editor.entity.fuel.FuelUsage;
+
+import java.util.Objects;
 
 public class Trip extends ReportContext {
     private String date;
@@ -110,6 +112,52 @@ public class Trip extends ReportContext {
         this.fuelEconomy = fuelEconomy;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        if (Double.compare(trip.kilometrage, kilometrage) != 0)
+            return false;
+        if (cargoTraffic != trip.cargoTraffic) return false;
+        if (Double.compare(trip.fuelStart, fuelStart) != 0) return false;
+        if (ridersNumber != trip.ridersNumber) return false;
+        if (Double.compare(trip.fuelEnd, fuelEnd) != 0) return false;
+        if (Double.compare(trip.fuelEconomy, fuelEconomy) != 0)
+            return false;
+        if (!Objects.equals(date, trip.date))
+            return false;
+        if (!Objects.equals(wayBill, trip.wayBill))
+            return false;
+        if (!Objects.equals(driver, trip.driver))
+            return false;
+        if (!Objects.equals(officialBill, trip.officialBill))
+            return false;
+        return Objects.equals(fuelUsage, trip.fuelUsage);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = date != null ? date.hashCode() : 0;
+        result = 31 * result + (wayBill != null ? wayBill.hashCode() : 0);
+        result = 31 * result + (driver != null ? driver.hashCode() : 0);
+        result = 31 * result + (officialBill != null ? officialBill.hashCode() : 0);
+        temp = Double.doubleToLongBits(kilometrage);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + cargoTraffic;
+        temp = Double.doubleToLongBits(fuelStart);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + ridersNumber;
+        temp = Double.doubleToLongBits(fuelEnd);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
+        temp = Double.doubleToLongBits(fuelEconomy);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
     public static final class TripBuilder {
         private int reportPosition;
         private String date;
@@ -206,51 +254,5 @@ public class Trip extends ReportContext {
             trip.setFuelEconomy(fuelEconomy);
             return trip;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Trip trip = (Trip) o;
-        if (Double.compare(trip.kilometrage, kilometrage) != 0)
-            return false;
-        if (cargoTraffic != trip.cargoTraffic) return false;
-        if (Double.compare(trip.fuelStart, fuelStart) != 0) return false;
-        if (ridersNumber != trip.ridersNumber) return false;
-        if (Double.compare(trip.fuelEnd, fuelEnd) != 0) return false;
-        if (Double.compare(trip.fuelEconomy, fuelEconomy) != 0)
-            return false;
-        if (date != null ? !date.equals(trip.date) : trip.date != null)
-            return false;
-        if (wayBill != null ? !wayBill.equals(trip.wayBill) : trip.wayBill != null)
-            return false;
-        if (driver != null ? !driver.equals(trip.driver) : trip.driver != null)
-            return false;
-        if (officialBill != null ? !officialBill.equals(trip.officialBill) : trip.officialBill != null)
-            return false;
-        return fuelUsage != null ? fuelUsage.equals(trip.fuelUsage) : trip.fuelUsage == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = date != null ? date.hashCode() : 0;
-        result = 31 * result + (wayBill != null ? wayBill.hashCode() : 0);
-        result = 31 * result + (driver != null ? driver.hashCode() : 0);
-        result = 31 * result + (officialBill != null ? officialBill.hashCode() : 0);
-        temp = Double.doubleToLongBits(kilometrage);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + cargoTraffic;
-        temp = Double.doubleToLongBits(fuelStart);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + ridersNumber;
-        temp = Double.doubleToLongBits(fuelEnd);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
-        temp = Double.doubleToLongBits(fuelEconomy);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
     }
 }

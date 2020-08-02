@@ -20,9 +20,9 @@ public class TSExcelUpdater {
     private static final int ROUND_KOEFF = 1000;
     private static final short TS_1_INDEX = 14;
     private static final short TS_2_INDEX = 15;
-    private static final short SUMM_INDEX = 39;
+    private static final short SUM_INDEX = 39;
 
-    public HSSFWorkbook update(HSSFWorkbook workbook, Report52 report52)
+    public void update(HSSFWorkbook workbook, Report52 report52)
             throws ProjectException {
         HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
         Iterator<Row> rowIterator = sheet.rowIterator();
@@ -54,12 +54,11 @@ public class TSExcelUpdater {
             row.getCell(TS_1_INDEX).setCellValue(tSValue1);
             row.getCell(TS_2_INDEX).setCellValue(tSValue2);
         }
-        HSSFRow row = sheet.getRow(SUMM_INDEX);
+        HSSFRow row = sheet.getRow(SUM_INDEX);
         String formula = row.getCell(columnIndex).getCellFormula();
         String formulaGeneral = row.getCell(TS_1_INDEX).getCellFormula();
         row.getCell(columnIndex).setCellFormula(formula);
         row.getCell(TS_1_INDEX).setCellFormula(formulaGeneral);
-        return workbook;
     }
 
     private boolean isRequiredIndex(int index) {

@@ -1,19 +1,19 @@
 package com.kharitonov.text_editor.entity.report;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Report52 {
     private final ReportHeader header;
-    private final Map<Integer,Trip> tripMap;
-    private final Map<Integer,TruckSummary> truckSummaryMap;
+    private final Map<Integer, Trip> tripMap;
+    private final Map<Integer, TruckSummary> truckSummaryMap;
     private final Report52Summary summary;
 
     public Report52(ReportHeader header,
-                    Map<Integer,Trip> tripMap,
-                    Map<Integer,TruckSummary> truckSummaryMap,
+                    Map<Integer, Trip> tripMap,
+                    Map<Integer, TruckSummary> truckSummaryMap,
                     Report52Summary summary) {
         this.header = header;
         this.tripMap = tripMap;
@@ -25,22 +25,20 @@ public class Report52 {
         return header;
     }
 
-    public Map<Integer,Trip> getTripMap() {
+    public Map<Integer, Trip> getTripMap() {
         return Collections.unmodifiableMap(tripMap);
     }
 
     public List<Trip> getTripList() {
-        return Collections
-                .unmodifiableList(new ArrayList<>(tripMap.values()));
+        return List.copyOf(tripMap.values());
     }
 
-    public Map<Integer,TruckSummary> getTruckSummaryMap() {
+    public Map<Integer, TruckSummary> getTruckSummaryMap() {
         return Collections.unmodifiableMap(truckSummaryMap);
     }
 
     public List<TruckSummary> getTruckSummaryList() {
-        return Collections
-                .unmodifiableList(new ArrayList<>(truckSummaryMap.values()));
+        return List.copyOf(truckSummaryMap.values());
     }
 
     public Report52Summary getSummary() {
@@ -52,13 +50,13 @@ public class Report52 {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Report52 report52 = (Report52) o;
-        if (header != null ? !header.equals(report52.header) : report52.header != null)
+        if (!Objects.equals(header, report52.header))
             return false;
-        if (tripMap != null ? !tripMap.equals(report52.tripMap) : report52.tripMap != null)
+        if (!Objects.equals(tripMap, report52.tripMap))
             return false;
-        if (truckSummaryMap != null ? !truckSummaryMap.equals(report52.truckSummaryMap) : report52.truckSummaryMap != null)
+        if (!Objects.equals(truckSummaryMap, report52.truckSummaryMap))
             return false;
-        return summary != null ? summary.equals(report52.summary) : report52.summary == null;
+        return Objects.equals(summary, report52.summary);
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.kharitonov.text_editor.entity;
 
 import com.kharitonov.text_editor.type.FuelType;
 
+import java.util.Objects;
+
 public class Truck {
     private final String carNumber;
     private final int garageNumber;
@@ -39,7 +41,7 @@ public class Truck {
         Truck truck = (Truck) o;
         if (garageNumber != truck.garageNumber) return false;
         if (modelCode != truck.modelCode) return false;
-        if (carNumber != null ? !carNumber.equals(truck.carNumber) : truck.carNumber != null)
+        if (!Objects.equals(carNumber, truck.carNumber))
             return false;
         return fuelType == truck.fuelType;
     }

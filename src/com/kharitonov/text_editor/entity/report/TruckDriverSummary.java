@@ -4,6 +4,8 @@ import com.kharitonov.text_editor.entity.Truck;
 import com.kharitonov.text_editor.entity.TruckDriver;
 import com.kharitonov.text_editor.entity.fuel.FuelUsage;
 
+import java.util.Objects;
+
 public class TruckDriverSummary {
     private TruckDriver driver;
     private Truck truck;
@@ -72,6 +74,41 @@ public class TruckDriverSummary {
         this.economy = economy;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TruckDriverSummary that = (TruckDriverSummary) o;
+        if (Double.compare(that.kilometrage, kilometrage) != 0)
+            return false;
+        if (cargoTraffic != that.cargoTraffic) return false;
+        if (Double.compare(that.fuelReceived, fuelReceived) != 0)
+            return false;
+        if (Double.compare(that.economy, economy) != 0) return false;
+        if (!Objects.equals(driver, that.driver))
+            return false;
+        if (!Objects.equals(truck, that.truck))
+            return false;
+        return Objects.equals(fuelUsage, that.fuelUsage);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = driver != null ? driver.hashCode() : 0;
+        result = 31 * result + (truck != null ? truck.hashCode() : 0);
+        temp = Double.doubleToLongBits(kilometrage);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + cargoTraffic;
+        temp = Double.doubleToLongBits(fuelReceived);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
+        temp = Double.doubleToLongBits(economy);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
     public static final class TruckDriverSummaryBuilder {
         private TruckDriver driver;
         private Truck truck;
@@ -134,40 +171,5 @@ public class TruckDriverSummary {
             truckDriverSummary.setEconomy(economy);
             return truckDriverSummary;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TruckDriverSummary that = (TruckDriverSummary) o;
-        if (Double.compare(that.kilometrage, kilometrage) != 0)
-            return false;
-        if (cargoTraffic != that.cargoTraffic) return false;
-        if (Double.compare(that.fuelReceived, fuelReceived) != 0)
-            return false;
-        if (Double.compare(that.economy, economy) != 0) return false;
-        if (driver != null ? !driver.equals(that.driver) : that.driver != null)
-            return false;
-        if (truck != null ? !truck.equals(that.truck) : that.truck != null)
-            return false;
-        return fuelUsage != null ? fuelUsage.equals(that.fuelUsage) : that.fuelUsage == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = driver != null ? driver.hashCode() : 0;
-        result = 31 * result + (truck != null ? truck.hashCode() : 0);
-        temp = Double.doubleToLongBits(kilometrage);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + cargoTraffic;
-        temp = Double.doubleToLongBits(fuelReceived);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
-        temp = Double.doubleToLongBits(economy);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
     }
 }

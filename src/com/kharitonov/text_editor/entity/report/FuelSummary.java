@@ -3,13 +3,15 @@ package com.kharitonov.text_editor.entity.report;
 import com.kharitonov.text_editor.entity.fuel.FuelUsage;
 import com.kharitonov.text_editor.type.FuelType;
 
+import java.util.Objects;
+
 public class FuelSummary {
     private FuelType fuelType;
     private double kilometrage;
     private int cargoTraffic;
     private int ridersNumber;
     private double fuelReceived;
-    private double fuelReceivedOficcial;
+    private double fuelReceivedOfficial;
     private FuelUsage fuelUsage;
     private double economy;
 
@@ -56,12 +58,12 @@ public class FuelSummary {
         this.fuelReceived = fuelReceived;
     }
 
-    public double getFuelReceivedOficcial() {
-        return fuelReceivedOficcial;
+    public double getFuelReceivedOfficial() {
+        return fuelReceivedOfficial;
     }
 
-    public void setFuelReceivedOficcial(double fuelReceivedOficcial) {
-        this.fuelReceivedOficcial = fuelReceivedOficcial;
+    public void setFuelReceivedOfficial(double fuelReceivedOfficial) {
+        this.fuelReceivedOfficial = fuelReceivedOfficial;
     }
 
     public FuelUsage getFuelUsage() {
@@ -80,13 +82,50 @@ public class FuelSummary {
         this.economy = economy;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FuelSummary that = (FuelSummary) o;
+        if (Double.compare(that.kilometrage, kilometrage) != 0)
+            return false;
+        if (cargoTraffic != that.cargoTraffic) return false;
+        if (ridersNumber != that.ridersNumber) return false;
+        if (Double.compare(that.fuelReceived, fuelReceived) != 0)
+            return false;
+        if (Double.compare(that.fuelReceivedOfficial, fuelReceivedOfficial) != 0)
+            return false;
+        if (Double.compare(that.economy, economy) != 0) return false;
+        if (fuelType != that.fuelType) return false;
+        return Objects.equals(fuelUsage, that.fuelUsage);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = fuelType != null ? fuelType.hashCode() : 0;
+        temp = Double.doubleToLongBits(kilometrage);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + cargoTraffic;
+        result = 31 * result + ridersNumber;
+        temp = Double.doubleToLongBits(fuelReceived);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(fuelReceivedOfficial);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
+        temp = Double.doubleToLongBits(economy);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
     public static final class FuelSummaryBuilder {
         private FuelType fuelType;
         private double kilometrage;
         private int cargoTraffic;
         private int ridersNumber;
         private double fuelReceived;
-        private double fuelReceivedOficcial;
+        private double fuelReceivedOfficial;
         private FuelUsage fuelUsage;
         private double economy;
 
@@ -122,8 +161,9 @@ public class FuelSummary {
             return this;
         }
 
-        public FuelSummaryBuilder withFuelReceivedOficcial(double fuelReceivedOficcial) {
-            this.fuelReceivedOficcial = fuelReceivedOficcial;
+        public FuelSummaryBuilder withFuelReceivedOfficial(
+                double fuelReceivedOfficial) {
+            this.fuelReceivedOfficial = fuelReceivedOfficial;
             return this;
         }
 
@@ -144,47 +184,10 @@ public class FuelSummary {
             fuelSummary.setCargoTraffic(cargoTraffic);
             fuelSummary.setRidersNumber(ridersNumber);
             fuelSummary.setFuelReceived(fuelReceived);
-            fuelSummary.setFuelReceivedOficcial(fuelReceivedOficcial);
+            fuelSummary.setFuelReceivedOfficial(fuelReceivedOfficial);
             fuelSummary.setFuelUsage(fuelUsage);
             fuelSummary.setEconomy(economy);
             return fuelSummary;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FuelSummary that = (FuelSummary) o;
-        if (Double.compare(that.kilometrage, kilometrage) != 0)
-            return false;
-        if (cargoTraffic != that.cargoTraffic) return false;
-        if (ridersNumber != that.ridersNumber) return false;
-        if (Double.compare(that.fuelReceived, fuelReceived) != 0)
-            return false;
-        if (Double.compare(that.fuelReceivedOficcial, fuelReceivedOficcial) != 0)
-            return false;
-        if (Double.compare(that.economy, economy) != 0) return false;
-        if (fuelType != that.fuelType) return false;
-        return fuelUsage != null ? fuelUsage.equals(that.fuelUsage) : that.fuelUsage == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = fuelType != null ? fuelType.hashCode() : 0;
-        temp = Double.doubleToLongBits(kilometrage);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + cargoTraffic;
-        result = 31 * result + ridersNumber;
-        temp = Double.doubleToLongBits(fuelReceived);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(fuelReceivedOficcial);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
-        temp = Double.doubleToLongBits(economy);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
     }
 }

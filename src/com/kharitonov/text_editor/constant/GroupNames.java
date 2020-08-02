@@ -13,7 +13,7 @@ public class GroupNames {
     public static final String RIDERS_NUMBER = "ridersNumber";
     public static final String FUEL_START = "fuelStart";
     public static final String RECEIVED_FUEL = "receivedFuel";
-    public static final String RECEVIED_FUEL_OFFICIAL = "receivedFuelOfficial";
+    public static final String RECEIVED_FUEL_OFFICIAL = "receivedFuelOfficial";
     public static final String RETURNED_FUEL = "returnedFuel";
     public static final String RETURNED_FUEL_OFFICIAL = "returnedFuelOfficial";
     public static final String FUEL_END = "fuelEnd";
@@ -25,8 +25,8 @@ public class GroupNames {
     public static final String DRIVER_KILOMETRAGE = "kilometrageDriver";
     public static final String DRIVER_CARGO_TRAFFIC = "cargoTrafficDriver";
     public static final String DRIVER_FUEL_RECEIVED = "fuelReceivedDriver";
-    public static final String DRIVER_USAGE_NORMAL= "usageNormalDriver";
-    public static final String DRIVER_USAGE_WAY_BILL= "usageWayBillDriver";
+    public static final String DRIVER_USAGE_NORMAL = "usageNormalDriver";
+    public static final String DRIVER_USAGE_WAY_BILL = "usageWayBillDriver";
     public static final String DRIVER_ECONOMY = "economyDriver";
     public static final String DRIVER_NAME_TRIP = "driverNameTrip";
     public static final String DRIVER_ID_TRIP = "driverIdTrip";

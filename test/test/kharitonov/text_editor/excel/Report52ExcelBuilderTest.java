@@ -11,7 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.testng.annotations.Test;
 
 public class Report52ExcelBuilderTest {
-    Report52ExcelBuilder builder = new Report52ExcelBuilder();
+    final Report52ExcelBuilder builder = new Report52ExcelBuilder();
 
     @Test
     public void testBuild() {
@@ -23,8 +23,8 @@ public class Report52ExcelBuilderTest {
         Report52 report52 = parser.parseReport52(data);
         ExcelFileReader reader = new ExcelFileReader();
         HSSFWorkbook workbook = reader.read("resources\\Report52Base.xls");
-        builder.fillReport(workbook,report52);
+        builder.fillReport(workbook, report52);
         ExcelFileWriter writer = new ExcelFileWriter();
-        writer.write(workbook,"Report52.xls");
+        writer.write(workbook, "Report52.xls");
     }
 }

@@ -95,6 +95,47 @@ public class TruckSummary extends ReportContext {
         this.truckDriverSummaryList = truckDriverSummaryList;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        TruckSummary that = (TruckSummary) o;
+        if (dayFirst != that.dayFirst) return false;
+        if (dayLast != that.dayLast) return false;
+        if (Double.compare(that.kilometrage, kilometrage) != 0)
+            return false;
+        if (cargoTraffic != that.cargoTraffic) return false;
+        if (ridersNumber != that.ridersNumber) return false;
+        if (!Objects.equals(truck, that.truck))
+            return false;
+        if (!Objects.equals(fuelBalance, that.fuelBalance))
+            return false;
+        if (!Objects.equals(fuelUsage, that.fuelUsage))
+            return false;
+        return Objects.equals(truckDriverSummaryList,
+                that.truckDriverSummaryList);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        long temp;
+        result = 31 * result + dayFirst;
+        result = 31 * result + dayLast;
+        result = 31 * result + (truck != null ? truck.hashCode() : 0);
+        temp = Double.doubleToLongBits(kilometrage);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + cargoTraffic;
+        result = 31 * result + ridersNumber;
+        result = 31 * result + (fuelBalance != null ? fuelBalance.hashCode() : 0);
+        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
+        result = 31 * result + (truckDriverSummaryList != null
+                ? truckDriverSummaryList.hashCode()
+                : 0);
+        return result;
+    }
+
     public static final class TruckSummaryBuilder {
         private int reportPosition;
         private int dayFirst;
@@ -149,7 +190,7 @@ public class TruckSummary extends ReportContext {
             return this;
         }
 
-        public TruckSummaryBuilder withFuelBallance(FuelBalance fuelBalance) {
+        public TruckSummaryBuilder withFuelBalance(FuelBalance fuelBalance) {
             this.fuelBalance = fuelBalance;
             return this;
         }
@@ -178,46 +219,5 @@ public class TruckSummary extends ReportContext {
             truckSummary.setTruckDriverSummaryList(truckDriverSummaryList);
             return truckSummary;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        TruckSummary that = (TruckSummary) o;
-        if (dayFirst != that.dayFirst) return false;
-        if (dayLast != that.dayLast) return false;
-        if (Double.compare(that.kilometrage, kilometrage) != 0)
-            return false;
-        if (cargoTraffic != that.cargoTraffic) return false;
-        if (ridersNumber != that.ridersNumber) return false;
-        if (!Objects.equals(truck, that.truck))
-            return false;
-        if (!Objects.equals(fuelBalance, that.fuelBalance))
-            return false;
-        if (!Objects.equals(fuelUsage, that.fuelUsage))
-            return false;
-        return Objects.equals(truckDriverSummaryList,
-                that.truckDriverSummaryList);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        long temp;
-        result = 31 * result + dayFirst;
-        result = 31 * result + dayLast;
-        result = 31 * result + (truck != null ? truck.hashCode() : 0);
-        temp = Double.doubleToLongBits(kilometrage);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + cargoTraffic;
-        result = 31 * result + ridersNumber;
-        result = 31 * result + (fuelBalance != null ? fuelBalance.hashCode() : 0);
-        result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
-        result = 31 * result + (truckDriverSummaryList != null
-                ? truckDriverSummaryList.hashCode()
-                : 0);
-        return result;
     }
 }

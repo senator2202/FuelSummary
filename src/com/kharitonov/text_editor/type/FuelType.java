@@ -5,14 +5,10 @@ public enum FuelType {
     AI_95("БЕНЗИН АИ-95"),
     DIESEL("ДИЗТОПЛИВО");
 
-    private String stringValue;
+    private final String stringValue;
 
     FuelType(String stringValue) {
         this.stringValue = stringValue;
-    }
-
-    public String getStringValue() {
-        return stringValue;
     }
 
     public static FuelType getFuelType(String value) {
@@ -23,5 +19,9 @@ public enum FuelType {
             }
         }
         return fuelType;
+    }
+
+    public String getStringValue() {
+        return stringValue;
     }
 }

@@ -46,7 +46,7 @@ public class FuelBalanceExcelBuilder {
             for (TruckDriverSummary summary :
                     truckSummary.getTruckDriverSummaryList()) {
                 String driverName = summary.getDriver().getName();
-                Double economy = summary.getEconomy();
+                double economy = summary.getEconomy();
                 HSSFRow row = sheet.createRow(counter++);
                 HSSFCellStyle style = createCellStyle(workbook);
                 StringBuilder sb = new StringBuilder();

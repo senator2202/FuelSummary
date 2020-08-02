@@ -26,7 +26,7 @@ public class TruckSummaryCreator {
         String fuelStart = matcher.group(GroupNames.FUEL_START);
         String receivedFuel = matcher.group(GroupNames.RECEIVED_FUEL);
         String receivedFuelOfficial =
-                matcher.group(GroupNames.RECEVIED_FUEL_OFFICIAL);
+                matcher.group(GroupNames.RECEIVED_FUEL_OFFICIAL);
         String returnedFuel = matcher.group(GroupNames.RETURNED_FUEL);
         String returnedFuelOfficial = matcher.group(GroupNames.RETURNED_FUEL_OFFICIAL);
         String fuelEnd = matcher.group(GroupNames.FUEL_END);
@@ -53,7 +53,7 @@ public class TruckSummaryCreator {
                 .aTruckSummary()
                 .withReportPosition(matcher.start())
                 .withTruck(truck)
-                .withFuelBallance(fuelBalance)
+                .withFuelBalance(fuelBalance)
                 .withFuelUsage(fuelUsage)
                 .withRidersNumber(numberOfRiders)
                 .withDayFirst(Integer.parseInt(dayFirst))

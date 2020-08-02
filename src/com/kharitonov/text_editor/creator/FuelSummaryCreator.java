@@ -1,7 +1,7 @@
 package com.kharitonov.text_editor.creator;
 
-import com.kharitonov.text_editor.entity.report.FuelSummary;
 import com.kharitonov.text_editor.entity.fuel.FuelUsage;
+import com.kharitonov.text_editor.entity.report.FuelSummary;
 import com.kharitonov.text_editor.type.FuelType;
 
 import java.util.regex.Matcher;
@@ -29,7 +29,7 @@ public class FuelSummaryCreator {
                 .withCargoTraffic(Integer.parseInt(cargoTraffic))
                 .withRidersNumber(riders)
                 .withFuelReceived(Double.parseDouble(fuelReceived))
-                .withFuelReceivedOficcial(Double
+                .withFuelReceivedOfficial(Double
                         .parseDouble(fuelReceivedOfficial))
                 .withFuelUsage(fuelUsage)
                 .withEconomy(Double.parseDouble(economy))

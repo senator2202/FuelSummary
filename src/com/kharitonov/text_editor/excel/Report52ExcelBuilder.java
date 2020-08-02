@@ -91,7 +91,7 @@ public class Report52ExcelBuilder {
             cell = row.createCell(RECEIVED_FUEL_INDEX);
             cell.setCellValue(fuelSummary.getFuelReceived());
             cell = row.createCell(RECEIVED_FUEL_OFFICIAL_INDEX);
-            cell.setCellValue(fuelSummary.getFuelReceivedOficcial());
+            cell.setCellValue(fuelSummary.getFuelReceivedOfficial());
             cell = row.createCell(USAGE_NORMAL_INDEX);
             cell.setCellValue(fuelSummary.getFuelUsage().getNormalUsage());
             cell = row.createCell(USAGE_WAY_BILL_INDEX);

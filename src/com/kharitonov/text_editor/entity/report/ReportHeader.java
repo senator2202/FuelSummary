@@ -3,6 +3,7 @@ package com.kharitonov.text_editor.entity.report;
 import com.kharitonov.text_editor.type.MonthRussian;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class ReportHeader {
     private final MonthRussian month;
@@ -42,7 +43,7 @@ public class ReportHeader {
         ReportHeader that = (ReportHeader) o;
         if (year != that.year) return false;
         if (month != that.month) return false;
-        return dateCreation != null ? dateCreation.equals(that.dateCreation) : that.dateCreation == null;
+        return Objects.equals(dateCreation, that.dateCreation);
     }
 
     @Override
