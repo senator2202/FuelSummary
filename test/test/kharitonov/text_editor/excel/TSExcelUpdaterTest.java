@@ -1,13 +1,13 @@
 package test.kharitonov.text_editor.excel;
 
-import com.kharitonov.text_editor.entity.report.Report52;
-import com.kharitonov.text_editor.excel.TSExcelUpdater;
-import com.kharitonov.text_editor.exception.ProjectException;
-import com.kharitonov.text_editor.file.reader.ExcelFileReader;
-import com.kharitonov.text_editor.file.reader.ProjectFileReader;
-import com.kharitonov.text_editor.file.writer.ExcelFileWriter;
-import com.kharitonov.text_editor.parser.Report52Parser;
-import com.kharitonov.text_editor.trimmer.ReportTrimmer;
+import com.kharitonov.fuel_summary.entity.report.Report52;
+import com.kharitonov.fuel_summary.excel.TSExcelUpdater;
+import com.kharitonov.fuel_summary.exception.ProjectException;
+import com.kharitonov.fuel_summary.file.reader.ExcelFileReader;
+import com.kharitonov.fuel_summary.file.reader.ProjectFileReader;
+import com.kharitonov.fuel_summary.file.writer.ExcelFileWriter;
+import com.kharitonov.fuel_summary.parser.Report52Parser;
+import com.kharitonov.fuel_summary.trimmer.ReportTrimmer;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.testng.annotations.Test;
 
@@ -26,6 +26,6 @@ public class TSExcelUpdaterTest {
         HSSFWorkbook workbook = excelReader.read("resources\\ТО-1-2 2020.xls");
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
         updater.update(workbook, report52);
-        excelFileWriter.write(workbook, "TS.xls");
+        excelFileWriter.write(workbook, "TS-1-2 2020.xls");
     }
 }
