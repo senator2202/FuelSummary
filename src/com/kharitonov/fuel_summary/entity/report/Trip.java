@@ -1,6 +1,6 @@
 package com.kharitonov.fuel_summary.entity.report;
 
-import com.kharitonov.fuel_summary.entity.TruckDriver;
+import com.kharitonov.fuel_summary.entity.CarDriver;
 import com.kharitonov.fuel_summary.entity.bill.OfficialBill;
 import com.kharitonov.fuel_summary.entity.bill.WayBill;
 import com.kharitonov.fuel_summary.entity.fuel.FuelUsage;
@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Trip extends ReportContext {
     private String date;
     private WayBill wayBill;
-    private TruckDriver driver;
+    private CarDriver driver;
     private OfficialBill officialBill;
     private double kilometrage;
     private int cargoTraffic;
@@ -40,11 +40,11 @@ public class Trip extends ReportContext {
         this.wayBill = wayBill;
     }
 
-    public TruckDriver getDriver() {
+    public CarDriver getDriver() {
         return driver;
     }
 
-    public void setDriver(TruckDriver driver) {
+    public void setDriver(CarDriver driver) {
         this.driver = driver;
     }
 
@@ -162,7 +162,7 @@ public class Trip extends ReportContext {
         private int reportPosition;
         private String date;
         private WayBill wayBill;
-        private TruckDriver driver;
+        private CarDriver driver;
         private OfficialBill officialBill;
         private double kilometrage;
         private int cargoTraffic;
@@ -194,7 +194,7 @@ public class Trip extends ReportContext {
             return this;
         }
 
-        public TripBuilder withDriver(TruckDriver driver) {
+        public TripBuilder withDriver(CarDriver driver) {
             this.driver = driver;
             return this;
         }

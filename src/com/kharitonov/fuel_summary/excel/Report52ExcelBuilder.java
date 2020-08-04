@@ -52,17 +52,17 @@ public class Report52ExcelBuilder {
         HSSFRow row;
         int counter = START_INDEX;
         map.putAll(report52.getTripMap());
-        map.putAll(report52.getTruckSummaryMap());
+        map.putAll(report52.getCarSummaryMap());
         for (ReportContext value : map.values()) {
             if (value instanceof Trip) {
                 row = sheet.createRow(counter);
                 addTrip(row, (Trip) value);
                 counter++;
             } else {
-                TruckSummary truckSummary = (TruckSummary) value;
-                counter = addTruckSummary(sheet, counter, truckSummary);
+                CarSummary carSummary = (CarSummary) value;
+                counter = addTruckSummary(sheet, counter, carSummary);
                 counter = addTruckDriverSummaries(sheet, counter,
-                        truckSummary);
+                        carSummary);
             }
         }
         addReportSummary(sheet, counter, report52.getSummary());
@@ -103,60 +103,60 @@ public class Report52ExcelBuilder {
     }
 
     private int addTruckSummary(HSSFSheet sheet, int rowIndex,
-                                TruckSummary truckSummary) {
+                                CarSummary carSummary) {
         HSSFRow row = sheet.createRow(rowIndex);
         sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex,
                 UNITED_REGION_START, UNITED_REGION_END));
-        int dayFirst = truckSummary.getDayFirst();
-        int dayLast = truckSummary.getDayLast();
-        int garageNumber = truckSummary.getTruck().getGarageNumber();
-        int modelCode = truckSummary.getTruck().getModelCode();
+        int dayFirst = carSummary.getDayFirst();
+        int dayLast = carSummary.getDayLast();
+        int garageNumber = carSummary.getCar().getGarageNumber();
+        int modelCode = carSummary.getCar().getModelCode();
         String text = String.format(TRUCK_SUMMARY_START_TEXT,
                 dayFirst, dayLast, garageNumber, modelCode);
         HSSFCell cell = row.createCell(TRUCK_SUMMARY_START_INDEX);
         cell.setCellValue(new HSSFRichTextString(text));
         cell = row.createCell(KILOMETRAGE_INDEX);
-        cell.setCellValue(truckSummary.getKilometrage());
+        cell.setCellValue(carSummary.getKilometrage());
         cell = row.createCell(CARGO_TRAFFIC_INDEX);
-        cell.setCellValue(truckSummary.getCargoTraffic());
+        cell.setCellValue(carSummary.getCargoTraffic());
         cell = row.createCell(RIDERS_NUMBER_INDEX);
-        cell.setCellValue(truckSummary.getRidersNumber());
+        cell.setCellValue(carSummary.getRidersNumber());
         cell = row.createCell(FUEL_START_INDEX);
-        cell.setCellValue(truckSummary.getFuelBalance().getFuelStart());
+        cell.setCellValue(carSummary.getFuelBalance().getFuelStart());
         cell = row.createCell(RECEIVED_FUEL_INDEX);
-        cell.setCellValue(truckSummary.getFuelBalance().getReceivedFuel());
+        cell.setCellValue(carSummary.getFuelBalance().getReceivedFuel());
         cell = row.createCell(RECEIVED_FUEL_OFFICIAL_INDEX);
-        cell.setCellValue(truckSummary.getFuelBalance()
+        cell.setCellValue(carSummary.getFuelBalance()
                 .getReceivedFuelOfficial());
         cell = row.createCell(FUEL_END_INDEX);
-        cell.setCellValue(truckSummary.getFuelBalance().getFuelEnd());
+        cell.setCellValue(carSummary.getFuelBalance().getFuelEnd());
         cell = row.createCell(USAGE_NORMAL_INDEX);
-        cell.setCellValue(truckSummary.getFuelUsage().getNormalUsage());
+        cell.setCellValue(carSummary.getFuelUsage().getNormalUsage());
         cell = row.createCell(USAGE_WAY_BILL_INDEX);
-        cell.setCellValue(truckSummary.getFuelUsage().getWayBillUsage());
+        cell.setCellValue(carSummary.getFuelUsage().getWayBillUsage());
         cell = row.createCell(ECONOMY_INDEX);
-        cell.setCellValue(truckSummary.getFuelUsage().getNormalUsage() -
-                truckSummary.getFuelUsage().getWayBillUsage());
+        cell.setCellValue(carSummary.getFuelUsage().getNormalUsage() -
+                carSummary.getFuelUsage().getWayBillUsage());
         row = sheet.createRow(++rowIndex);
         sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex,
                 UNITED_REGION_START, UNITED_REGION_END));
         text = String.format(CAR_NUMBER_TEXT,
-                truckSummary.getTruck().getCarNumber());
+                carSummary.getCar().getCarNumber());
         cell = row.createCell(TRUCK_SUMMARY_START_INDEX);
         cell.setCellValue(new HSSFRichTextString(text));
         return ++rowIndex;
     }
 
     private int addTruckDriverSummaries(HSSFSheet sheet, int rowIndex,
-                                        TruckSummary truckSummary) {
-        if (truckSummary.getTruckDriverSummaryList().size() > 1) {
+                                        CarSummary carSummary) {
+        if (carSummary.getCarDriverSummaryList().size() > 1) {
             HSSFRow row = sheet.createRow(rowIndex);
             sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex,
                     UNITED_REGION_START, UNITED_REGION_END));
             HSSFCell cell = row.createCell(UNITED_REGION_START);
             cell.setCellValue(new HSSFRichTextString(DRIVER_SUMMARY_TEXT));
-            for (TruckDriverSummary summary :
-                    truckSummary.getTruckDriverSummaryList()) {
+            for (CarDriverSummary summary :
+                    carSummary.getCarDriverSummaryList()) {
                 int tempInt;
                 double tempDouble;
                 String text = summary.getDriver().getName();

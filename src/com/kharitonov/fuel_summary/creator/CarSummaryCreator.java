@@ -2,19 +2,19 @@ package com.kharitonov.fuel_summary.creator;
 
 import com.kharitonov.fuel_summary.constant.GroupNames;
 import com.kharitonov.fuel_summary.constant.RegexContainer;
-import com.kharitonov.fuel_summary.entity.Truck;
+import com.kharitonov.fuel_summary.entity.Car;
 import com.kharitonov.fuel_summary.entity.fuel.FuelBalance;
 import com.kharitonov.fuel_summary.entity.fuel.FuelUsage;
-import com.kharitonov.fuel_summary.entity.report.TruckDriverSummary;
-import com.kharitonov.fuel_summary.entity.report.TruckSummary;
+import com.kharitonov.fuel_summary.entity.report.CarDriverSummary;
+import com.kharitonov.fuel_summary.entity.report.CarSummary;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TruckSummaryCreator {
-    public TruckSummary create(Matcher matcher) {
+public class CarSummaryCreator {
+    public CarSummary create(Matcher matcher) {
         String dayFirst = matcher.group(GroupNames.DAY_FIRST);
         String dayLast = matcher.group(GroupNames.DAY_LAST);
         String garageNumber = matcher.group(GroupNames.GARAGE_NUMBER);
@@ -33,7 +33,7 @@ public class TruckSummaryCreator {
         String usageNormal = matcher.group(GroupNames.USAGE_NORMAL);
         String usageWayBill = matcher.group(GroupNames.USAGE_WAY_BILL);
         String carNumber = matcher.group(GroupNames.CAR_NUMBER);
-        Truck truck = new TruckCreator()
+        Car car = new CarCreator()
                 .create(carNumber, garageNumber, modelCode);
         FuelBalance fuelBalance = new FuelBalanceCreator()
                 .create(fuelStart,
@@ -47,12 +47,12 @@ public class TruckSummaryCreator {
         int numberOfRiders = ridersNumber == null || ridersNumber.isEmpty()
                 ? 0
                 : Integer.parseInt(ridersNumber);
-        List<TruckDriverSummary> truckDriverSummaries =
+        List<CarDriverSummary> truckDriverSummaries =
                 getTruckDriverSummaries(matcher);
-        return TruckSummary.TruckSummaryBuilder
+        return CarSummary.CarSummaryBuilder
                 .aTruckSummary()
                 .withReportPosition(matcher.start())
-                .withTruck(truck)
+                .withTruck(car)
                 .withFuelBalance(fuelBalance)
                 .withFuelUsage(fuelUsage)
                 .withRidersNumber(numberOfRiders)
@@ -64,17 +64,17 @@ public class TruckSummaryCreator {
                 .build();
     }
 
-    private List<TruckDriverSummary> getTruckDriverSummaries(Matcher matcher) {
+    private List<CarDriverSummary> getTruckDriverSummaries(Matcher matcher) {
         Pattern p = Pattern.compile(RegexContainer.REGEX_DRIVER);
         Matcher m = p.matcher(matcher.group());
-        List<TruckDriverSummary> list = new ArrayList<>();
+        List<CarDriverSummary> list = new ArrayList<>();
         while (m.find()) {
-            TruckDriverSummary summary = new TruckDriverSummaryCreator()
+            CarDriverSummary summary = new CarDriverSummaryCreator()
                     .createSeveral(m);
             list.add(summary);
         }
         if (list.isEmpty()) {
-            TruckDriverSummary summary = new TruckDriverSummaryCreator()
+            CarDriverSummary summary = new CarDriverSummaryCreator()
                     .createSolo(matcher);
             list.add(summary);
         }

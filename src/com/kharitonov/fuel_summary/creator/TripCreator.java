@@ -1,7 +1,7 @@
 package com.kharitonov.fuel_summary.creator;
 
 import com.kharitonov.fuel_summary.constant.GroupNames;
-import com.kharitonov.fuel_summary.entity.TruckDriver;
+import com.kharitonov.fuel_summary.entity.CarDriver;
 import com.kharitonov.fuel_summary.entity.bill.OfficialBill;
 import com.kharitonov.fuel_summary.entity.bill.WayBill;
 import com.kharitonov.fuel_summary.entity.fuel.FuelUsage;
@@ -36,8 +36,8 @@ public class TripCreator {
                         returnedFuelOfficial);
         WayBill wayBill = new WayBillCreator().create(pack, wayBillId,
                 receivedFuel, returnedFuel);
-        TruckDriver truckDriver =
-                new TruckDriverCreator().create(driverId, driverName);
+        CarDriver carDriver =
+                new CarDriverCreator().create(driverId, driverName);
         FuelUsage fuelUsage =
                 new FuelUsageCreator().create(usageNormal, usageWayBill);
         int numberOfRiders = ridersNumber == null || ridersNumber.isEmpty()
@@ -48,7 +48,7 @@ public class TripCreator {
                 .withDate(date)
                 .withOfficialBill(officialBill)
                 .withWayBill(wayBill)
-                .withDriver(truckDriver)
+                .withDriver(carDriver)
                 .withFuelUsage(fuelUsage)
                 .withKilometrage(Double.parseDouble(kilometrage))
                 .withCargoTraffic(Integer.parseInt(cargoTraffic))

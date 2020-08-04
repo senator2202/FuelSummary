@@ -1,4 +1,4 @@
-package test.kharitonov.text_editor.excel;
+package test.kharitonov.fuel_summary.excel;
 
 import com.kharitonov.fuel_summary.entity.report.Report52;
 import com.kharitonov.fuel_summary.excel.FuelBalanceExcelBuilder;
@@ -15,7 +15,7 @@ public class FuelBalanceExcelBuilderTest {
     @Test
     public void testBuild() {
         ProjectFileReader fileReader = new ProjectFileReader();
-        String data = fileReader.read("resources\\JUNE52");
+        String data = fileReader.read("resources\\JULY52");
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();

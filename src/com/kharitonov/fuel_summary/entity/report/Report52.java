@@ -1,20 +1,22 @@
 package com.kharitonov.fuel_summary.entity.report;
 
+import com.kharitonov.fuel_summary.constant.CarParkInformation;
+
 import java.util.*;
 
 public class Report52 {
     private final ReportHeader header;
     private final Map<Integer, Trip> tripMap;
-    private final Map<Integer, TruckSummary> truckSummaryMap;
+    private final Map<Integer, CarSummary> carSummaryMap;
     private final Report52Summary summary;
 
     public Report52(ReportHeader header,
                     Map<Integer, Trip> tripMap,
-                    Map<Integer, TruckSummary> truckSummaryMap,
+                    Map<Integer, CarSummary> carSummaryMap,
                     Report52Summary summary) {
         this.header = header;
         this.tripMap = tripMap;
-        this.truckSummaryMap = truckSummaryMap;
+        this.carSummaryMap = carSummaryMap;
         this.summary = summary;
     }
 
@@ -30,14 +32,23 @@ public class Report52 {
         return List.copyOf(tripMap.values());
     }
 
-    public Map<Integer, TruckSummary> getTruckSummaryMap() {
-        return Collections.unmodifiableMap(truckSummaryMap);
+    public Map<Integer, CarSummary> getCarSummaryMap() {
+        return Collections.unmodifiableMap(carSummaryMap);
     }
 
-    public List<TruckSummary> getTruckSummaryList() {
-        TreeMap<Integer, TruckSummary> treeMap = new TreeMap<>();
-        treeMap.putAll(truckSummaryMap);
-        return List.copyOf(treeMap.values());
+    public List<CarSummary> getCarSummaryList() {
+        return List.copyOf(carSummaryMap.values());
+    }
+
+    public List<CarSummary> getUtilityCarSummaryList() {
+        List<CarSummary> list = new ArrayList<>();
+        for (CarSummary carSummary : carSummaryMap.values()) {
+            if (CarParkInformation
+                    .isUtilityTruck(carSummary.getCar().getGarageNumber())) {
+                list.add(carSummary);
+            }
+        }
+        return Collections.unmodifiableList(list);
     }
 
     public Report52Summary getSummary() {
@@ -53,7 +64,7 @@ public class Report52 {
             return false;
         if (!Objects.equals(tripMap, report52.tripMap))
             return false;
-        if (!Objects.equals(truckSummaryMap, report52.truckSummaryMap))
+        if (!Objects.equals(carSummaryMap, report52.carSummaryMap))
             return false;
         return Objects.equals(summary, report52.summary);
     }
@@ -62,7 +73,7 @@ public class Report52 {
     public int hashCode() {
         int result = header != null ? header.hashCode() : 0;
         result = 31 * result + (tripMap != null ? tripMap.hashCode() : 0);
-        result = 31 * result + (truckSummaryMap != null ? truckSummaryMap.hashCode() : 0);
+        result = 31 * result + (carSummaryMap != null ? carSummaryMap.hashCode() : 0);
         result = 31 * result + (summary != null ? summary.hashCode() : 0);
         return result;
     }

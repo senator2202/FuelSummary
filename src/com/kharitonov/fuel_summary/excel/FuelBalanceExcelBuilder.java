@@ -1,8 +1,8 @@
 package com.kharitonov.fuel_summary.excel;
 
 import com.kharitonov.fuel_summary.entity.report.Report52;
-import com.kharitonov.fuel_summary.entity.report.TruckDriverSummary;
-import com.kharitonov.fuel_summary.entity.report.TruckSummary;
+import com.kharitonov.fuel_summary.entity.report.CarDriverSummary;
+import com.kharitonov.fuel_summary.entity.report.CarSummary;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 
@@ -40,11 +40,11 @@ public class FuelBalanceExcelBuilder {
     private void createSummary(HSSFWorkbook workbook, Report52 report52) {
         int counter = 1;
         HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
-        for (TruckSummary truckSummary : report52.getTruckSummaryList()) {
-            int garageNumber = truckSummary.getTruck().getGarageNumber();
-            int lastDay = truckSummary.getDayLast();
-            for (TruckDriverSummary summary :
-                    truckSummary.getTruckDriverSummaryList()) {
+        for (CarSummary carSummary : report52.getCarSummaryList()) {
+            int garageNumber = carSummary.getCar().getGarageNumber();
+            int lastDay = carSummary.getDayLast();
+            for (CarDriverSummary summary :
+                    carSummary.getCarDriverSummaryList()) {
                 String driverName = summary.getDriver().getName();
                 double economy = summary.getEconomy();
                 HSSFRow row = sheet.createRow(counter++);

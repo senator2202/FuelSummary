@@ -1,37 +1,37 @@
 package com.kharitonov.fuel_summary.entity.report;
 
-import com.kharitonov.fuel_summary.entity.Truck;
-import com.kharitonov.fuel_summary.entity.TruckDriver;
+import com.kharitonov.fuel_summary.entity.Car;
+import com.kharitonov.fuel_summary.entity.CarDriver;
 import com.kharitonov.fuel_summary.entity.fuel.FuelUsage;
 
 import java.util.Objects;
 
-public class TruckDriverSummary {
-    private TruckDriver driver;
-    private Truck truck;
+public class CarDriverSummary {
+    private CarDriver driver;
+    private Car car;
     private double kilometrage;
     private int cargoTraffic;
     private double fuelReceived;
     private FuelUsage fuelUsage;
     private double economy;
 
-    private TruckDriverSummary() {
+    private CarDriverSummary() {
     }
 
-    public TruckDriver getDriver() {
+    public CarDriver getDriver() {
         return driver;
     }
 
-    public void setDriver(TruckDriver driver) {
+    public void setDriver(CarDriver driver) {
         this.driver = driver;
     }
 
-    public Truck getTruck() {
-        return truck;
+    public Car getCar() {
+        return car;
     }
 
-    public void setTruck(Truck truck) {
-        this.truck = truck;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public double getKilometrage() {
@@ -78,7 +78,7 @@ public class TruckDriverSummary {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TruckDriverSummary that = (TruckDriverSummary) o;
+        CarDriverSummary that = (CarDriverSummary) o;
         if (Double.compare(that.kilometrage, kilometrage) != 0)
             return false;
         if (cargoTraffic != that.cargoTraffic) return false;
@@ -87,7 +87,7 @@ public class TruckDriverSummary {
         if (Double.compare(that.economy, economy) != 0) return false;
         if (!Objects.equals(driver, that.driver))
             return false;
-        if (!Objects.equals(truck, that.truck))
+        if (!Objects.equals(car, that.car))
             return false;
         return Objects.equals(fuelUsage, that.fuelUsage);
     }
@@ -97,7 +97,7 @@ public class TruckDriverSummary {
         int result;
         long temp;
         result = driver != null ? driver.hashCode() : 0;
-        result = 31 * result + (truck != null ? truck.hashCode() : 0);
+        result = 31 * result + (car != null ? car.hashCode() : 0);
         temp = Double.doubleToLongBits(kilometrage);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + cargoTraffic;
@@ -109,67 +109,67 @@ public class TruckDriverSummary {
         return result;
     }
 
-    public static final class TruckDriverSummaryBuilder {
-        private TruckDriver driver;
-        private Truck truck;
+    public static final class CarDriverSummaryBuilder {
+        private CarDriver driver;
+        private Car car;
         private double kilometrage;
         private int cargoTraffic;
         private double fuelReceived;
         private FuelUsage fuelUsage;
         private double economy;
 
-        private TruckDriverSummaryBuilder() {
+        private CarDriverSummaryBuilder() {
         }
 
-        public static TruckDriverSummaryBuilder aTruckDriverSummary() {
-            return new TruckDriverSummaryBuilder();
+        public static CarDriverSummaryBuilder aTruckDriverSummary() {
+            return new CarDriverSummaryBuilder();
         }
 
-        public TruckDriverSummaryBuilder withDriver(TruckDriver driver) {
+        public CarDriverSummaryBuilder withDriver(CarDriver driver) {
             this.driver = driver;
             return this;
         }
 
-        public TruckDriverSummaryBuilder withTruck(Truck truck) {
-            this.truck = truck;
+        public CarDriverSummaryBuilder withTruck(Car car) {
+            this.car = car;
             return this;
         }
 
-        public TruckDriverSummaryBuilder withKilometrage(double kilometrage) {
+        public CarDriverSummaryBuilder withKilometrage(double kilometrage) {
             this.kilometrage = kilometrage;
             return this;
         }
 
-        public TruckDriverSummaryBuilder withCargoTraffic(int cargoTraffic) {
+        public CarDriverSummaryBuilder withCargoTraffic(int cargoTraffic) {
             this.cargoTraffic = cargoTraffic;
             return this;
         }
 
-        public TruckDriverSummaryBuilder withFuelReceived(double fuelReceived) {
+        public CarDriverSummaryBuilder withFuelReceived(double fuelReceived) {
             this.fuelReceived = fuelReceived;
             return this;
         }
 
-        public TruckDriverSummaryBuilder withFuelUsage(FuelUsage fuelUsage) {
+        public CarDriverSummaryBuilder withFuelUsage(FuelUsage fuelUsage) {
             this.fuelUsage = fuelUsage;
             return this;
         }
 
-        public TruckDriverSummaryBuilder withEconomy(double economy) {
+        public CarDriverSummaryBuilder withEconomy(double economy) {
             this.economy = economy;
             return this;
         }
 
-        public TruckDriverSummary build() {
-            TruckDriverSummary truckDriverSummary = new TruckDriverSummary();
-            truckDriverSummary.setDriver(driver);
-            truckDriverSummary.setTruck(truck);
-            truckDriverSummary.setKilometrage(kilometrage);
-            truckDriverSummary.setCargoTraffic(cargoTraffic);
-            truckDriverSummary.setFuelReceived(fuelReceived);
-            truckDriverSummary.setFuelUsage(fuelUsage);
-            truckDriverSummary.setEconomy(economy);
-            return truckDriverSummary;
+        public CarDriverSummary build() {
+            CarDriverSummary carDriverSummary = new CarDriverSummary();
+            carDriverSummary.setDriver(driver);
+            carDriverSummary.setCar(car);
+            carDriverSummary.setKilometrage(kilometrage);
+            carDriverSummary.setCargoTraffic(cargoTraffic);
+            carDriverSummary.setFuelReceived(fuelReceived);
+            carDriverSummary.setFuelUsage(fuelUsage);
+            carDriverSummary.setEconomy(economy);
+            return carDriverSummary;
         }
     }
 }

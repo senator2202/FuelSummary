@@ -1,4 +1,4 @@
-package test.kharitonov.text_editor.excel;
+package test.kharitonov.fuel_summary.excel;
 
 import com.kharitonov.fuel_summary.entity.report.Report52;
 import com.kharitonov.fuel_summary.excel.TSExcelUpdater;
@@ -12,7 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.testng.annotations.Test;
 
 public class TSExcelUpdaterTest {
-    final TSExcelUpdater updater = new TSExcelUpdater();
+    private final TSExcelUpdater updater = new TSExcelUpdater();
 
     @Test
     public void testUpdate() throws ProjectException {
@@ -26,6 +26,6 @@ public class TSExcelUpdaterTest {
         HSSFWorkbook workbook = excelReader.read("resources\\ТО-1-2 2020.xls");
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
         updater.update(workbook, report52);
-        excelFileWriter.write(workbook, "TS-1-2 2020.xls");
+        excelFileWriter.write(workbook, "ТО-1-2 2020.xls");
     }
 }

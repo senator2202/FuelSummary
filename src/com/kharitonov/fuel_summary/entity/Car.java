@@ -1,21 +1,26 @@
 package com.kharitonov.fuel_summary.entity;
 
+import com.kharitonov.fuel_summary.type.CarType;
 import com.kharitonov.fuel_summary.type.FuelType;
 
 import java.util.Objects;
 
-public class Truck {
+public class Car {
     private final String carNumber;
     private final int garageNumber;
     private final int modelCode;
     private final FuelType fuelType;
+    private CarType carType;
+    private boolean isUtility;
 
-    public Truck(String carNumber, int garageNumber, int modelCode,
-                 FuelType fuelType) {
+    public Car(String carNumber, int garageNumber, int modelCode,
+               FuelType fuelType, CarType carType, boolean isUtility) {
         this.carNumber = carNumber;
         this.garageNumber = garageNumber;
         this.modelCode = modelCode;
         this.fuelType = fuelType;
+        this.carType = carType;
+        this.isUtility=isUtility;
     }
 
     public String getCarNumber() {
@@ -34,16 +39,24 @@ public class Truck {
         return fuelType;
     }
 
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public boolean isUtility() {
+        return isUtility;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Truck truck = (Truck) o;
-        if (garageNumber != truck.garageNumber) return false;
-        if (modelCode != truck.modelCode) return false;
-        if (!Objects.equals(carNumber, truck.carNumber))
+        Car car = (Car) o;
+        if (garageNumber != car.garageNumber) return false;
+        if (modelCode != car.modelCode) return false;
+        if (!Objects.equals(carNumber, car.carNumber))
             return false;
-        return fuelType == truck.fuelType;
+        return fuelType == car.fuelType;
     }
 
     @Override

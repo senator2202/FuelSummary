@@ -1,25 +1,25 @@
 package com.kharitonov.fuel_summary.entity.report;
 
-import com.kharitonov.fuel_summary.entity.Truck;
+import com.kharitonov.fuel_summary.entity.Car;
 import com.kharitonov.fuel_summary.entity.fuel.FuelBalance;
 import com.kharitonov.fuel_summary.entity.fuel.FuelUsage;
 
 import java.util.List;
 import java.util.Objects;
 
-public class TruckSummary extends ReportContext {
+public class CarSummary extends ReportContext {
 
     private int dayFirst;
     private int dayLast;
-    private Truck truck;
+    private Car car;
     private double kilometrage;
     private int cargoTraffic;
     private int ridersNumber;
     private FuelBalance fuelBalance;
     private FuelUsage fuelUsage;
-    private List<TruckDriverSummary> truckDriverSummaryList;
+    private List<CarDriverSummary> carDriverSummaryList;
 
-    private TruckSummary(int position) {
+    private CarSummary(int position) {
         super(position);
     }
 
@@ -39,12 +39,12 @@ public class TruckSummary extends ReportContext {
         this.dayLast = dayLast;
     }
 
-    public Truck getTruck() {
-        return truck;
+    public Car getCar() {
+        return car;
     }
 
-    public void setTruck(Truck truck) {
-        this.truck = truck;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public double getKilometrage() {
@@ -87,12 +87,12 @@ public class TruckSummary extends ReportContext {
         this.fuelUsage = fuelUsage;
     }
 
-    public List<TruckDriverSummary> getTruckDriverSummaryList() {
-        return truckDriverSummaryList;
+    public List<CarDriverSummary> getCarDriverSummaryList() {
+        return carDriverSummaryList;
     }
 
-    public void setTruckDriverSummaryList(List<TruckDriverSummary> truckDriverSummaryList) {
-        this.truckDriverSummaryList = truckDriverSummaryList;
+    public void setCarDriverSummaryList(List<CarDriverSummary> carDriverSummaryList) {
+        this.carDriverSummaryList = carDriverSummaryList;
     }
 
     @Override
@@ -100,21 +100,21 @@ public class TruckSummary extends ReportContext {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        TruckSummary that = (TruckSummary) o;
+        CarSummary that = (CarSummary) o;
         if (dayFirst != that.dayFirst) return false;
         if (dayLast != that.dayLast) return false;
         if (Double.compare(that.kilometrage, kilometrage) != 0)
             return false;
         if (cargoTraffic != that.cargoTraffic) return false;
         if (ridersNumber != that.ridersNumber) return false;
-        if (!Objects.equals(truck, that.truck))
+        if (!Objects.equals(car, that.car))
             return false;
         if (!Objects.equals(fuelBalance, that.fuelBalance))
             return false;
         if (!Objects.equals(fuelUsage, that.fuelUsage))
             return false;
-        return Objects.equals(truckDriverSummaryList,
-                that.truckDriverSummaryList);
+        return Objects.equals(carDriverSummaryList,
+                that.carDriverSummaryList);
     }
 
     @Override
@@ -123,101 +123,101 @@ public class TruckSummary extends ReportContext {
         long temp;
         result = 31 * result + dayFirst;
         result = 31 * result + dayLast;
-        result = 31 * result + (truck != null ? truck.hashCode() : 0);
+        result = 31 * result + (car != null ? car.hashCode() : 0);
         temp = Double.doubleToLongBits(kilometrage);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + cargoTraffic;
         result = 31 * result + ridersNumber;
         result = 31 * result + (fuelBalance != null ? fuelBalance.hashCode() : 0);
         result = 31 * result + (fuelUsage != null ? fuelUsage.hashCode() : 0);
-        result = 31 * result + (truckDriverSummaryList != null
-                ? truckDriverSummaryList.hashCode()
+        result = 31 * result + (carDriverSummaryList != null
+                ? carDriverSummaryList.hashCode()
                 : 0);
         return result;
     }
 
-    public static final class TruckSummaryBuilder {
+    public static final class CarSummaryBuilder {
         private int reportPosition;
         private int dayFirst;
         private int dayLast;
-        private Truck truck;
+        private Car car;
         private double kilometrage;
         private int cargoTraffic;
         private int ridersNumber;
         private FuelBalance fuelBalance;
         private FuelUsage fuelUsage;
-        private List<TruckDriverSummary> truckDriverSummaryList;
+        private List<CarDriverSummary> carDriverSummaryList;
 
-        private TruckSummaryBuilder() {
+        private CarSummaryBuilder() {
         }
 
-        public static TruckSummaryBuilder aTruckSummary() {
-            return new TruckSummaryBuilder();
+        public static CarSummaryBuilder aTruckSummary() {
+            return new CarSummaryBuilder();
         }
 
-        public TruckSummaryBuilder withReportPosition(int reportPosition) {
+        public CarSummaryBuilder withReportPosition(int reportPosition) {
             this.reportPosition = reportPosition;
             return this;
         }
 
-        public TruckSummaryBuilder withDayFirst(int dayFirst) {
+        public CarSummaryBuilder withDayFirst(int dayFirst) {
             this.dayFirst = dayFirst;
             return this;
         }
 
-        public TruckSummaryBuilder withDayLast(int dayLast) {
+        public CarSummaryBuilder withDayLast(int dayLast) {
             this.dayLast = dayLast;
             return this;
         }
 
-        public TruckSummaryBuilder withTruck(Truck truck) {
-            this.truck = truck;
+        public CarSummaryBuilder withTruck(Car car) {
+            this.car = car;
             return this;
         }
 
-        public TruckSummaryBuilder withKilometrage(double kilometrage) {
+        public CarSummaryBuilder withKilometrage(double kilometrage) {
             this.kilometrage = kilometrage;
             return this;
         }
 
-        public TruckSummaryBuilder withCargoTraffic(int cargoTraffic) {
+        public CarSummaryBuilder withCargoTraffic(int cargoTraffic) {
             this.cargoTraffic = cargoTraffic;
             return this;
         }
 
-        public TruckSummaryBuilder withRidersNumber(int ridersNumber) {
+        public CarSummaryBuilder withRidersNumber(int ridersNumber) {
             this.ridersNumber = ridersNumber;
             return this;
         }
 
-        public TruckSummaryBuilder withFuelBalance(FuelBalance fuelBalance) {
+        public CarSummaryBuilder withFuelBalance(FuelBalance fuelBalance) {
             this.fuelBalance = fuelBalance;
             return this;
         }
 
-        public TruckSummaryBuilder withFuelUsage(FuelUsage fuelUsage) {
+        public CarSummaryBuilder withFuelUsage(FuelUsage fuelUsage) {
             this.fuelUsage = fuelUsage;
             return this;
         }
 
-        public TruckSummaryBuilder withTruckDriverSummaries(
-                List<TruckDriverSummary> truckDriverSummaryList) {
-            this.truckDriverSummaryList = truckDriverSummaryList;
+        public CarSummaryBuilder withTruckDriverSummaries(
+                List<CarDriverSummary> carDriverSummaryList) {
+            this.carDriverSummaryList = carDriverSummaryList;
             return this;
         }
 
-        public TruckSummary build() {
-            TruckSummary truckSummary = new TruckSummary(reportPosition);
-            truckSummary.setDayFirst(dayFirst);
-            truckSummary.setDayLast(dayLast);
-            truckSummary.setTruck(truck);
-            truckSummary.setKilometrage(kilometrage);
-            truckSummary.setCargoTraffic(cargoTraffic);
-            truckSummary.setRidersNumber(ridersNumber);
-            truckSummary.setFuelBalance(fuelBalance);
-            truckSummary.setFuelUsage(fuelUsage);
-            truckSummary.setTruckDriverSummaryList(truckDriverSummaryList);
-            return truckSummary;
+        public CarSummary build() {
+            CarSummary carSummary = new CarSummary(reportPosition);
+            carSummary.setDayFirst(dayFirst);
+            carSummary.setDayLast(dayLast);
+            carSummary.setCar(car);
+            carSummary.setKilometrage(kilometrage);
+            carSummary.setCargoTraffic(cargoTraffic);
+            carSummary.setRidersNumber(ridersNumber);
+            carSummary.setFuelBalance(fuelBalance);
+            carSummary.setFuelUsage(fuelUsage);
+            carSummary.setCarDriverSummaryList(carDriverSummaryList);
+            return carSummary;
         }
     }
 }
