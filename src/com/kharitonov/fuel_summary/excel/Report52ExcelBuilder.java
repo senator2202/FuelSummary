@@ -1,7 +1,7 @@
 package com.kharitonov.fuel_summary.excel;
 
 import com.kharitonov.fuel_summary.entity.report.*;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.util.Map;
@@ -45,11 +45,11 @@ public class Report52ExcelBuilder {
     private static final String DRIVER_SUMMARY_TEXT =
             "В ТОМ ЧИСЛЕ ПО ВОДИТЕЛЯМ";
 
-    public void fillReport(HSSFWorkbook workbook, Report52 report52) {
-        HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
+    public void fillReport(Workbook workbook, Report52 report52) {
+        Sheet sheet = workbook.getSheet(SHEET_NAME);
         updateHeader(workbook, report52);
         Map<Integer, ReportContext> map = new TreeMap<>();
-        HSSFRow row;
+        Row row;
         int counter = START_INDEX;
         map.putAll(report52.getTripMap());
         map.putAll(report52.getCarSummaryMap());
@@ -68,21 +68,19 @@ public class Report52ExcelBuilder {
         addReportSummary(sheet, counter, report52.getSummary());
     }
 
-    private void addReportSummary(HSSFSheet sheet, int rowIndex,
+    private void addReportSummary(Sheet sheet, int rowIndex,
                                   Report52Summary summary) {
-        HSSFRow row = sheet.createRow(++rowIndex);
+        Row row = sheet.createRow(++rowIndex);
         sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex,
                 UNITED_REGION_START, UNITED_REGION_END));
-        HSSFCell cell = row.createCell(SUMMARY_START_INDEX);
-        cell.setCellValue(new HSSFRichTextString(Report52Summary
-                .getSummaryLabel()));
+        Cell cell = row.createCell(SUMMARY_START_INDEX);
+        cell.setCellValue(Report52Summary.getSummaryLabel());
         for (FuelSummary fuelSummary : summary.getFuelSummaryList()) {
             row = sheet.createRow(++rowIndex);
             sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex,
                     UNITED_REGION_START, UNITED_REGION_END));
             cell = row.createCell(SUMMARY_START_INDEX);
-            cell.setCellValue(new HSSFRichTextString(fuelSummary
-                    .getFuelType().getStringValue()));
+            cell.setCellValue(fuelSummary.getFuelType().getStringValue());
             cell = row.createCell(KILOMETRAGE_INDEX);
             cell.setCellValue(fuelSummary.getKilometrage());
             cell = row.createCell(CARGO_TRAFFIC_INDEX);
@@ -102,9 +100,9 @@ public class Report52ExcelBuilder {
         }
     }
 
-    private int addTruckSummary(HSSFSheet sheet, int rowIndex,
+    private int addTruckSummary(Sheet sheet, int rowIndex,
                                 CarSummary carSummary) {
-        HSSFRow row = sheet.createRow(rowIndex);
+        Row row = sheet.createRow(rowIndex);
         sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex,
                 UNITED_REGION_START, UNITED_REGION_END));
         int dayFirst = carSummary.getDayFirst();
@@ -113,8 +111,8 @@ public class Report52ExcelBuilder {
         int modelCode = carSummary.getCar().getModelCode();
         String text = String.format(TRUCK_SUMMARY_START_TEXT,
                 dayFirst, dayLast, garageNumber, modelCode);
-        HSSFCell cell = row.createCell(TRUCK_SUMMARY_START_INDEX);
-        cell.setCellValue(new HSSFRichTextString(text));
+        Cell cell = row.createCell(TRUCK_SUMMARY_START_INDEX);
+        cell.setCellValue(text);
         cell = row.createCell(KILOMETRAGE_INDEX);
         cell.setCellValue(carSummary.getKilometrage());
         cell = row.createCell(CARGO_TRAFFIC_INDEX);
@@ -141,20 +139,20 @@ public class Report52ExcelBuilder {
         sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex,
                 UNITED_REGION_START, UNITED_REGION_END));
         text = String.format(CAR_NUMBER_TEXT,
-                carSummary.getCar().getCarNumber());
+                carSummary.getCar().getStateNumber());
         cell = row.createCell(TRUCK_SUMMARY_START_INDEX);
-        cell.setCellValue(new HSSFRichTextString(text));
+        cell.setCellValue(text);
         return ++rowIndex;
     }
 
-    private int addTruckDriverSummaries(HSSFSheet sheet, int rowIndex,
+    private int addTruckDriverSummaries(Sheet sheet, int rowIndex,
                                         CarSummary carSummary) {
         if (carSummary.getCarDriverSummaryList().size() > 1) {
-            HSSFRow row = sheet.createRow(rowIndex);
+            Row row = sheet.createRow(rowIndex);
             sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex,
                     UNITED_REGION_START, UNITED_REGION_END));
-            HSSFCell cell = row.createCell(UNITED_REGION_START);
-            cell.setCellValue(new HSSFRichTextString(DRIVER_SUMMARY_TEXT));
+            Cell cell = row.createCell(UNITED_REGION_START);
+            cell.setCellValue(DRIVER_SUMMARY_TEXT);
             for (CarDriverSummary summary :
                     carSummary.getCarDriverSummaryList()) {
                 int tempInt;
@@ -162,7 +160,7 @@ public class Report52ExcelBuilder {
                 String text = summary.getDriver().getName();
                 row = sheet.createRow(++rowIndex);
                 cell = row.createCell(DRIVER_NAME_INDEX);
-                cell.setCellValue(new HSSFRichTextString(text));
+                cell.setCellValue(text);
                 tempInt = summary.getDriver().getId();
                 cell = row.createCell(DRIVER_ID_INDEX);
                 cell.setCellValue(tempInt);
@@ -190,10 +188,10 @@ public class Report52ExcelBuilder {
         return rowIndex;
     }
 
-    private void addTrip(HSSFRow row, Trip trip) {
+    private void addTrip(Row row, Trip trip) {
         try {
-            HSSFCell cell = row.createCell(DATE_COLUMN_INDEX);
-            cell.setCellValue(new HSSFRichTextString(trip.getDate()));
+            Cell cell = row.createCell(DATE_COLUMN_INDEX);
+            cell.setCellValue(trip.getDate());
             cell = row.createCell(OFFICIAL_BILL_ID_INDEX);
             if (trip.getOfficialBill().getId() != 0) {
                 cell.setCellValue(trip.getOfficialBill().getId());
@@ -203,8 +201,8 @@ public class Report52ExcelBuilder {
             cell = row.createCell(WAY_BILL_ID_INDEX);
             cell.setCellValue(trip.getWayBill().getId());
             cell = row.createCell(DRIVER_NAME_INDEX);
-            cell.setCellValue(new HSSFRichTextString(trip
-                    .getDriver().getName()));
+            cell.setCellValue(trip
+                    .getDriver().getName());
             cell = row.createCell(DRIVER_ID_INDEX);
             cell.setCellValue(trip.getDriver().getId());
             cell = row.createCell(KILOMETRAGE_INDEX);
@@ -232,26 +230,26 @@ public class Report52ExcelBuilder {
         }
     }
 
-    private void updateHeader(HSSFWorkbook workbook, Report52 report52) {
-        HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
+    private void updateHeader(Workbook workbook, Report52 report52) {
+        Sheet sheet = workbook.getSheet(SHEET_NAME);
         updateMonthAndYear(sheet, report52);
         updateCreationDate(sheet, report52);
     }
 
-    private void updateMonthAndYear(HSSFSheet sheet, Report52 report52) {
-        HSSFRow row = sheet.getRow(HEADER_ROW_INDEX);
-        HSSFCell cell = row.getCell(UNITED_CELL_INDEX);
+    private void updateMonthAndYear(Sheet sheet, Report52 report52) {
+        Row row = sheet.getRow(HEADER_ROW_INDEX);
+        Cell cell = row.getCell(UNITED_CELL_INDEX);
         String month = report52.getHeader().getMonth().getValue();
         int year = report52.getHeader().getYear();
         String text = String.format(MONTH_YEAR_TEXT, month, year);
-        cell.setCellValue(new HSSFRichTextString(text));
+        cell.setCellValue(text);
     }
 
-    private void updateCreationDate(HSSFSheet sheet, Report52 report52) {
-        HSSFRow row = sheet.getRow(CREATION_DATE_ROW_INDEX);
-        HSSFCell cell = row.getCell(UNITED_CELL_INDEX);
+    private void updateCreationDate(Sheet sheet, Report52 report52) {
+        Row row = sheet.getRow(CREATION_DATE_ROW_INDEX);
+        Cell cell = row.getCell(UNITED_CELL_INDEX);
         String creationDate = report52.getHeader().getStringDateCreation();
         String text = String.format(CREATION_DATE, creationDate);
-        cell.setCellValue(new HSSFRichTextString(text));
+        cell.setCellValue(text);
     }
 }

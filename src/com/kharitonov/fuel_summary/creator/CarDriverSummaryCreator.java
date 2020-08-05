@@ -2,7 +2,7 @@ package com.kharitonov.fuel_summary.creator;
 
 import com.kharitonov.fuel_summary.constant.GroupNames;
 import com.kharitonov.fuel_summary.constant.CarParkInformation;
-import com.kharitonov.fuel_summary.entity.Car;
+import com.kharitonov.fuel_summary.entity.vehicle.Car;
 import com.kharitonov.fuel_summary.entity.CarDriver;
 import com.kharitonov.fuel_summary.entity.fuel.FuelUsage;
 import com.kharitonov.fuel_summary.entity.report.CarDriverSummary;
@@ -42,9 +42,7 @@ public class CarDriverSummaryCreator {
         Car car = new Car(matcher.group(GroupNames.CAR_NUMBER),
                 garageNumber,
                 Integer.parseInt(matcher.group(GroupNames.MODEL_CODE)),
-                CarParkInformation.getFuelType(garageNumber),
-                CarParkInformation.getCarType(garageNumber),
-                CarParkInformation.isUtilityTruck(garageNumber));
+                CarParkInformation.getFuelType(garageNumber));
         CarDriver driver = new CarDriver(
                 Integer.parseInt(matcher.group(GroupNames.DRIVER_ID_TRIP)),
                 matcher.group(GroupNames.DRIVER_NAME_TRIP));

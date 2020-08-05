@@ -3,9 +3,7 @@ package com.kharitonov.fuel_summary.excel;
 import com.kharitonov.fuel_summary.entity.report.Report52;
 import com.kharitonov.fuel_summary.entity.report.CarSummary;
 import com.kharitonov.fuel_summary.exception.ProjectException;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Row;
 
 import java.util.Iterator;
@@ -22,9 +20,9 @@ public class TSExcelUpdater {
     private static final int TS_2_INDEX = 15;
     private static final int SUM_INDEX = 39;
 
-    public void update(HSSFWorkbook workbook, Report52 report52)
+    public void update(Workbook workbook, Report52 report52)
             throws ProjectException {
-        HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
+        Sheet sheet = workbook.getSheet(SHEET_NAME);
         Iterator<Row> rowIterator = sheet.rowIterator();
         Iterator<CarSummary> carSummaryIterator =
                 report52.getCarSummaryList().iterator();
@@ -54,11 +52,12 @@ public class TSExcelUpdater {
             row.getCell(TS_1_INDEX).setCellValue(tSValue1);
             row.getCell(TS_2_INDEX).setCellValue(tSValue2);
         }
-        HSSFRow row = sheet.getRow(SUM_INDEX);
-        String formula = row.getCell(columnIndex).getCellFormula();
-        String formulaGeneral = row.getCell(TS_1_INDEX).getCellFormula();
-        row.getCell(columnIndex).setCellFormula(formula);
-        row.getCell(TS_1_INDEX).setCellFormula(formulaGeneral);
+        Row row = sheet.getRow(SUM_INDEX);
+        FormulaEvaluator evaluator =
+                workbook.getCreationHelper()
+                        .createFormulaEvaluator();
+        evaluator.evaluateFormulaCell(row.getCell(columnIndex));
+        evaluator.evaluateFormulaCell(row.getCell(TS_1_INDEX));
     }
 
     private boolean isRequiredIndex(int index) {

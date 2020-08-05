@@ -8,7 +8,7 @@ import com.kharitonov.fuel_summary.file.reader.ProjectFileReader;
 import com.kharitonov.fuel_summary.file.writer.ExcelFileWriter;
 import com.kharitonov.fuel_summary.parser.Report52Parser;
 import com.kharitonov.fuel_summary.trimmer.ReportTrimmer;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 
 public class Main {
     public static void main(String[] args) throws ProjectException {
@@ -19,7 +19,7 @@ public class Main {
         Report52Parser parser = new Report52Parser();
         Report52 report52 = parser.parseReport52(data);
         ExcelFileReader excelReader = new ExcelFileReader();
-        HSSFWorkbook workbook = excelReader.read("resources\\ТО-1-2 2020.xls");
+        Workbook workbook = excelReader.read("resources\\ТО-1-2 2020.xls");
         TSExcelUpdater tsExcelUpdater = new TSExcelUpdater();
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
         tsExcelUpdater.update(workbook, report52);

@@ -8,6 +8,7 @@ import com.kharitonov.fuel_summary.file.writer.ExcelFileWriter;
 import com.kharitonov.fuel_summary.parser.Report52Parser;
 import com.kharitonov.fuel_summary.trimmer.ReportTrimmer;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.testng.annotations.Test;
 
 public class Report52ExcelBuilderTest {
@@ -22,7 +23,7 @@ public class Report52ExcelBuilderTest {
         Report52Parser parser = new Report52Parser();
         Report52 report52 = parser.parseReport52(data);
         ExcelFileReader reader = new ExcelFileReader();
-        HSSFWorkbook workbook = reader.read("resources\\Report52Base.xls");
+        Workbook workbook = reader.read("resources\\Report52Base.xls");
         builder.fillReport(workbook, report52);
         ExcelFileWriter writer = new ExcelFileWriter();
         writer.write(workbook, "Report52.xls");

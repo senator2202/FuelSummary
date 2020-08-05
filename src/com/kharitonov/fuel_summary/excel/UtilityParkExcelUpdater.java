@@ -2,12 +2,8 @@ package com.kharitonov.fuel_summary.excel;
 
 import com.kharitonov.fuel_summary.entity.report.CarSummary;
 import com.kharitonov.fuel_summary.entity.report.Report52;
-import com.kharitonov.fuel_summary.type.CarType;
 import com.kharitonov.fuel_summary.type.FuelType;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
 
 import java.util.Iterator;
 import java.util.List;
@@ -21,24 +17,24 @@ public class UtilityParkExcelUpdater {
     private static final int PETROL_SUMMARY_ROW_INDEX = 15;
     private static final int DIESEL_SUMMARY_ROW_INDEX = 16;
 
-    public void update(HSSFWorkbook workbook, Report52 report52) {
+    public void update(Workbook workbook, Report52 report52) {
         updateContextRows(workbook, report52);
         updateFuelSummary(workbook, report52);
     }
 
-    private void updateContextRows(HSSFWorkbook workbook, Report52 report52) {
+    private void updateContextRows(Workbook workbook, Report52 report52) {
         List<CarSummary> carSummaryList = report52.getUtilityCarSummaryList();
-        HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
+        Sheet sheet = workbook.getSheet(SHEET_NAME);
         Iterator<CarSummary> carSummaryIterator = carSummaryList.iterator();
         int monthIndex = report52.getHeader().getMonth().getIndex();
         int fuelUsageIndex = (monthIndex - 1) * 2 + INDEX_DELTA;
         int kilometrageIndex = fuelUsageIndex + 1;
         while (carSummaryIterator.hasNext()) {
             int rowIndex = START_ROW_INDEX;
-            HSSFRow row = sheet.getRow(rowIndex);
+            Row row = sheet.getRow(rowIndex);
             CarSummary carSummary = carSummaryIterator.next();
             int garageNumber;
-            HSSFCell cell;
+            Cell cell;
             while (rowIndex < sheet.getLastRowNum()) {
                 try {
                     row = sheet.getRow(rowIndex);
@@ -60,10 +56,10 @@ public class UtilityParkExcelUpdater {
         }
     }
 
-    private void updateFuelSummary(HSSFWorkbook workbook, Report52 report52) {
-        HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
-        HSSFRow row;
-        HSSFCell cell;
+    private void updateFuelSummary(Workbook workbook, Report52 report52) {
+        Sheet sheet = workbook.getSheet(SHEET_NAME);
+        Row row;
+        Cell cell;
         double petrolSum = 0;
         double dieselSum = 0;
         double passengerSum = 0;
@@ -75,9 +71,6 @@ public class UtilityParkExcelUpdater {
                 petrolSum += carSummary.getFuelUsage().getWayBillUsage();
             } else {
                 dieselSum += carSummary.getFuelUsage().getWayBillUsage();
-            }
-            if (carSummary.getCar().getCarType() == CarType.PASSENGER_CAR) {
-                passengerSum += carSummary.getFuelUsage().getWayBillUsage();
             }
         }
         row = sheet.getRow(PASSENGER_SUMMARY_ROW_INDEX);

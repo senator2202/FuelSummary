@@ -2,7 +2,7 @@ package com.kharitonov.fuel_summary.creator;
 
 import com.kharitonov.fuel_summary.constant.GroupNames;
 import com.kharitonov.fuel_summary.constant.RegexContainer;
-import com.kharitonov.fuel_summary.entity.Car;
+import com.kharitonov.fuel_summary.entity.vehicle.Car;
 import com.kharitonov.fuel_summary.entity.fuel.FuelBalance;
 import com.kharitonov.fuel_summary.entity.fuel.FuelUsage;
 import com.kharitonov.fuel_summary.entity.report.CarDriverSummary;
@@ -18,7 +18,6 @@ public class CarSummaryCreator {
         String dayFirst = matcher.group(GroupNames.DAY_FIRST);
         String dayLast = matcher.group(GroupNames.DAY_LAST);
         String garageNumber = matcher.group(GroupNames.GARAGE_NUMBER);
-        String modelCode = matcher.group(GroupNames.MODEL_CODE);
         String kilometrage = matcher.group(GroupNames.KILOMETRAGE);
         String cargoTraffic = matcher.group(GroupNames.CARGO_TRAFFIC);
         String ridersNumber = matcher.group(GroupNames.RIDERS_NUMBER);
@@ -32,9 +31,8 @@ public class CarSummaryCreator {
         String fuelEnd = matcher.group(GroupNames.FUEL_END);
         String usageNormal = matcher.group(GroupNames.USAGE_NORMAL);
         String usageWayBill = matcher.group(GroupNames.USAGE_WAY_BILL);
-        String carNumber = matcher.group(GroupNames.CAR_NUMBER);
         Car car = new CarCreator()
-                .create(carNumber, garageNumber, modelCode);
+                .create(garageNumber);
         FuelBalance fuelBalance = new FuelBalanceCreator()
                 .create(fuelStart,
                         receivedFuel,

@@ -1,6 +1,6 @@
 package com.kharitonov.fuel_summary.entity.report;
 
-import com.kharitonov.fuel_summary.entity.Car;
+import com.kharitonov.fuel_summary.entity.vehicle.Car;
 import com.kharitonov.fuel_summary.entity.CarDriver;
 import com.kharitonov.fuel_summary.entity.fuel.FuelUsage;
 

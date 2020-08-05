@@ -37,9 +37,14 @@ public class RegexContainer {
                     "(?<fuelEnd>\\d+\\.\\d+)(\\s+)" +
                     "(?<usageNormal>\\d+\\.\\d+)(\\s+)" +
                     "(?<usageWayBill>\\d+\\.\\d+)(\\s+)" +
-                    "(?<fuelEconomy>-?\\d+\\.\\d+)" +
-                    "(\\s+ГОСУДАРСТВЕННЫЙ\\sНOМЕР\\s)" +
+                    "(?<fuelEconomy>-?\\d+\\.\\d+)(\\s+)" +
+                    "((ГОСУДАРСТВЕННЫЙ\\sНOМЕР\\s)" +
                     "(?<carNumber>(\\p{L}{2}\\s?\\d{2}-?\\d{2}-?\\d?)" +
+                    "|(\\d\\d-\\d\\d\\p{L}\\p{L}\\d)" +
+                    "|(\\d{4}\\p{L}{2}-\\d)))?";
+    public static final String CAR_NUMBER =
+            "(ГОСУДАРСТВЕННЫЙ\\sНOМЕР\\s)" +
+                    "(?<carNumberSolo>(\\p{L}{2}\\s?\\d{2}-?\\d{2}-?\\d?)" +
                     "|(\\d\\d-\\d\\d\\p{L}\\p{L}\\d)" +
                     "|(\\d{4}\\p{L}{2}-\\d))";
     public static final String DRIVERS_TEXT =

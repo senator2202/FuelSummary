@@ -4,7 +4,7 @@ import com.kharitonov.fuel_summary.entity.report.Report52;
 import com.kharitonov.fuel_summary.entity.report.CarDriverSummary;
 import com.kharitonov.fuel_summary.entity.report.CarSummary;
 import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.*;
 
 public class FuelBalanceExcelBuilder {
     private static final int HEADER_ROW_INDEX = 0;
@@ -29,17 +29,17 @@ public class FuelBalanceExcelBuilder {
         return workbook;
     }
 
-    private void createHeader(HSSFWorkbook workbook) {
-        HSSFSheet sheet = workbook.createSheet(SHEET_NAME);
-        HSSFRow row = sheet.createRow(HEADER_ROW_INDEX);
-        HSSFCellStyle style = createHeaderStyle(workbook);
+    private void createHeader(Workbook workbook) {
+        Sheet sheet = workbook.createSheet(SHEET_NAME);
+        Row row = sheet.createRow(HEADER_ROW_INDEX);
+        CellStyle style = createHeaderStyle(workbook);
         createHeaderCells(row);
         applyStyle(sheet, row, style);
     }
 
-    private void createSummary(HSSFWorkbook workbook, Report52 report52) {
+    private void createSummary(Workbook workbook, Report52 report52) {
         int counter = 1;
-        HSSFSheet sheet = workbook.getSheet(SHEET_NAME);
+        Sheet sheet = workbook.getSheet(SHEET_NAME);
         for (CarSummary carSummary : report52.getCarSummaryList()) {
             int garageNumber = carSummary.getCar().getGarageNumber();
             int lastDay = carSummary.getDayLast();
@@ -47,8 +47,8 @@ public class FuelBalanceExcelBuilder {
                     carSummary.getCarDriverSummaryList()) {
                 String driverName = summary.getDriver().getName();
                 double economy = summary.getEconomy();
-                HSSFRow row = sheet.createRow(counter++);
-                HSSFCellStyle style = createCellStyle(workbook);
+                Row row = sheet.createRow(counter++);
+                CellStyle style = createCellStyle(workbook);
                 StringBuilder sb = new StringBuilder();
                 sb.append(lastDay).append(DELIMITER)
                         .append(report52.getHeader().getMonth().getIndex())
@@ -66,9 +66,9 @@ public class FuelBalanceExcelBuilder {
         }
     }
 
-    private HSSFCellStyle createHeaderStyle(HSSFWorkbook workbook) {
-        HSSFFont font = workbook.createFont();
-        HSSFCellStyle style = workbook.createCellStyle();
+    private CellStyle createHeaderStyle(Workbook workbook) {
+        Font font = workbook.createFont();
+        CellStyle style = workbook.createCellStyle();
         font.setBold(true);
         font.setFontHeight(HEADER_FONT_SIZE);
         font.setFontName(FONT_NAME);
@@ -77,7 +77,7 @@ public class FuelBalanceExcelBuilder {
         return style;
     }
 
-    private void createHeaderCells(HSSFRow row) {
+    private void createHeaderCells(Row row) {
         row.createCell(NUMBER_INDEX)
                 .setCellValue(new HSSFRichTextString(NUMBER_COLUMN));
         row.createCell(DRIVER_INDEX)
@@ -88,17 +88,17 @@ public class FuelBalanceExcelBuilder {
                 .setCellValue(new HSSFRichTextString(LAST_WAY_BILL_COLUMN));
     }
 
-    private void applyStyle(HSSFSheet sheet, HSSFRow row, HSSFCellStyle style) {
+    private void applyStyle(Sheet sheet, Row row, CellStyle style) {
         for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
-            HSSFCell cell = row.getCell((short) i);
+            Cell cell = row.getCell((short) i);
             cell.setCellStyle(style);
             sheet.autoSizeColumn((short) i);
         }
     }
 
-    private HSSFCellStyle createCellStyle(HSSFWorkbook workbook) {
-        HSSFFont font = workbook.createFont();
-        HSSFCellStyle style = workbook.createCellStyle();
+    private CellStyle createCellStyle(Workbook workbook) {
+        Font font = workbook.createFont();
+        CellStyle style = workbook.createCellStyle();
         font.setFontHeight(CELL_FONT_SIZE);
         font.setFontName(FONT_NAME);
         style.setFont(font);

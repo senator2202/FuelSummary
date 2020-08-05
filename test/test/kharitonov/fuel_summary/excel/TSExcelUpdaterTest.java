@@ -9,6 +9,7 @@ import com.kharitonov.fuel_summary.file.writer.ExcelFileWriter;
 import com.kharitonov.fuel_summary.parser.Report52Parser;
 import com.kharitonov.fuel_summary.trimmer.ReportTrimmer;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.testng.annotations.Test;
 
 public class TSExcelUpdaterTest {
@@ -23,7 +24,7 @@ public class TSExcelUpdaterTest {
         Report52Parser parser = new Report52Parser();
         Report52 report52 = parser.parseReport52(data);
         ExcelFileReader excelReader = new ExcelFileReader();
-        HSSFWorkbook workbook = excelReader.read("resources\\ТО-1-2 2020.xls");
+        Workbook workbook = excelReader.read("resources\\ТО-1-2 2020.xls");
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
         updater.update(workbook, report52);
         excelFileWriter.write(workbook, "ТО-1-2 2020.xls");

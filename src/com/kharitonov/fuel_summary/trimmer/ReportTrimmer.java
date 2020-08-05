@@ -7,14 +7,8 @@ import java.util.regex.Pattern;
 
 public class ReportTrimmer {
     public String trimUseless(String data) {
-        String finalRegex = String.format("(?<trip>%s)|" +
-                        "(?<truckSummary>%s)|" +
-                        "(?<driversText>%s)|" +
-                        "(?<driver>%s)|" +
-                        "(?<header>%s)|" +
-                        "(?<gasSummary>%s)|" +
-                        "(?<summaryText>%s)|" +
-                        "(?<fuelText>%s)",
+        String finalRegex =
+                String.format("(%s)|(%s)|(%s)(%s)|(%s)|(%s)|(%s)|(%s)|(%s)",
                 RegexContainer.REGEX_TRIP,
                 RegexContainer.REGEX_TRUCK_SUMMARY,
                 RegexContainer.DRIVERS_TEXT,
@@ -22,7 +16,8 @@ public class ReportTrimmer {
                 RegexContainer.REGEX_HEADER,
                 RegexContainer.REGEX_FUEL_SUMMARY,
                 RegexContainer.SUMMARY_TEXT,
-                RegexContainer.REGEX_FUEL);
+                RegexContainer.REGEX_FUEL,
+                RegexContainer.CAR_NUMBER);
         Pattern pattern = Pattern.compile(finalRegex);
         Matcher matcher = pattern.matcher(data);
         StringBuilder sb = new StringBuilder();
