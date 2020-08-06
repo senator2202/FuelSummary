@@ -25,9 +25,9 @@ public class UtilityParkExcelUpdaterTest {
         Report52Parser parser = new Report52Parser();
         Report52 report52 = parser.parseReport52(data);
         ExcelFileReader excelReader = new ExcelFileReader();
-        Workbook workbook = excelReader.read("resources\\Хоз парк 2020.xls");
+        Workbook workbook = excelReader.read("resources\\Хоз парк 2020.xlsx");
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
         updater.update(workbook, report52);
-        excelFileWriter.write(workbook, "Хоз парк 2020.xls");
+        excelFileWriter.write(workbook, "Хоз парк 2020.xlsx");
     }
 }

@@ -38,7 +38,7 @@ public class WheelExcelUpdaterTest {
             Workbook workbook = excelReader.read("resources\\wheels\\"+filename);
             ExcelFileWriter excelFileWriter = new ExcelFileWriter();
             updater.update(workbook, report52);
-            excelFileWriter.write(workbook, "wheels\\Updated "+filename);
+            excelFileWriter.write(workbook, "wheels\\"+filename);
         }
 
     }

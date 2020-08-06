@@ -51,6 +51,7 @@ public class TSExcelUpdater {
             tSValue2 += carSummary.getKilometrage() / ROUND_KOEFF;
             row.getCell(TS_1_INDEX).setCellValue(tSValue1);
             row.getCell(TS_2_INDEX).setCellValue(tSValue2);
+            rowIterator = sheet.rowIterator();
         }
         Row row = sheet.getRow(SUM_INDEX);
         FormulaEvaluator evaluator =

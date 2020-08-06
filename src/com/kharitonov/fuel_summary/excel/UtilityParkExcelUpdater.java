@@ -36,16 +36,17 @@ public class UtilityParkExcelUpdater {
             int garageNumber;
             Cell cell;
             while (rowIndex < sheet.getLastRowNum()) {
-                try {
                     row = sheet.getRow(rowIndex);
+                    if (row.getCell(GARAGE_NUMBER_INDEX).getCellType() !=
+                            CellType.NUMERIC) {
+                        ++rowIndex;
+                        continue;
+                    }
                     garageNumber = (int) row.getCell(GARAGE_NUMBER_INDEX)
                             .getNumericCellValue();
                     if (garageNumber == carSummary.getCar().getGarageNumber()) {
                         break;
                     } else {
-                        ++rowIndex;
-                    }
-                } catch (Exception ex) {
                     ++rowIndex;
                 }
             }
