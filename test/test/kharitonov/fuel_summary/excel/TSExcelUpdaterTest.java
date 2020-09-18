@@ -18,7 +18,7 @@ public class TSExcelUpdaterTest {
     @Test
     public void testUpdate() throws ProjectException {
         ProjectFileReader fileReader = new ProjectFileReader();
-        String data = fileReader.read("resources\\JULY52");
+        String data = fileReader.read("resources\\AUGUST52");
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();
