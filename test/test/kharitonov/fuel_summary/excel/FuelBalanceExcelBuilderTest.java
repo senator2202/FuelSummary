@@ -15,7 +15,7 @@ public class FuelBalanceExcelBuilderTest {
     @Test
     public void testBuild() {
         ProjectFileReader fileReader = new ProjectFileReader();
-        String data = fileReader.read("resources\\JULY52");
+        String data = fileReader.read("resources\\NOV52");
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();

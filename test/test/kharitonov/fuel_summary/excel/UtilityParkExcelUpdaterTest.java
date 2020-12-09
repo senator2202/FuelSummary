@@ -19,7 +19,7 @@ public class UtilityParkExcelUpdaterTest {
     @Test
     public void testUpdate() {
         ProjectFileReader fileReader = new ProjectFileReader();
-        String data = fileReader.read("resources\\JULY52");
+        String data = fileReader.read("resources\\AUGUST52");
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();

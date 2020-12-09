@@ -24,7 +24,7 @@ public class WheelExcelUpdaterTest {
     @Test
     public void testUpdate() {
         ProjectFileReader fileReader = new ProjectFileReader();
-        String data = fileReader.read("resources\\JULY52");
+        String data = fileReader.read("resources\\OCT52");
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();
@@ -35,10 +35,10 @@ public class WheelExcelUpdaterTest {
         for (File file : lst) {
             String filename = file.getName();
             ExcelFileReader excelReader = new ExcelFileReader();
-            Workbook workbook = excelReader.read("resources\\wheels\\"+filename);
+            Workbook workbook = excelReader.read("resources\\wheels\\" + filename);
             ExcelFileWriter excelFileWriter = new ExcelFileWriter();
             updater.update(workbook, report52);
-            excelFileWriter.write(workbook, "wheels\\"+filename);
+            excelFileWriter.write(workbook, "wheels\\" + filename);
         }
 
     }
