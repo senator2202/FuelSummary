@@ -24,15 +24,14 @@ public class WheelExcelUpdaterTest {
     @Test
     public void testUpdate() {
         ProjectFileReader fileReader = new ProjectFileReader();
-        String data = fileReader.read("resources\\OCT52");
+        String data = fileReader.read("resources\\FEB52");
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();
         Report52 report52 = parser.parseReport52(data);
         File dir = new File("resources\\wheels"); //path указывает на директорию
         File[] arrFiles = dir.listFiles();
-        List<File> lst = Arrays.asList(arrFiles);
-        for (File file : lst) {
+        for (File file : arrFiles) {
             String filename = file.getName();
             ExcelFileReader excelReader = new ExcelFileReader();
             Workbook workbook = excelReader.read("resources\\wheels\\" + filename);

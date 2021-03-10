@@ -18,15 +18,15 @@ public class TSExcelUpdaterTest {
     @Test
     public void testUpdate() throws ProjectException {
         ProjectFileReader fileReader = new ProjectFileReader();
-        String data = fileReader.read("resources\\OCT52");
+        String data = fileReader.read("resources\\FEB52");
         ReportTrimmer trimmer = new ReportTrimmer();
         data = trimmer.trimUseless(data);
         Report52Parser parser = new Report52Parser();
         Report52 report52 = parser.parseReport52(data);
         ExcelFileReader excelReader = new ExcelFileReader();
-        Workbook workbook = excelReader.read("resources\\ТО-1-2 2020.xlsx");
+        Workbook workbook = excelReader.read("resources\\ТО-1-2 2021.xlsx");
         ExcelFileWriter excelFileWriter = new ExcelFileWriter();
         updater.update(workbook, report52);
-        excelFileWriter.write(workbook, "ТО-1-2 2020.xlsx");
+        excelFileWriter.write(workbook, "ТО-1-2 2021.xlsx");
     }
 }
